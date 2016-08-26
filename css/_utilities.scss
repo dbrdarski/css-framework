@@ -1,0 +1,492 @@
+@import "functions";
+
+@mixin clearfix {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin -v($p, $v) {
+	-moz-#{$p}: -v($v,-moz-);
+	-webkit-#{$p}: -v($v,-webkit-);
+	-ms-#{$p}: -v($v,-ms-);
+	-o-#{$p}: -v($v,-o-);
+	#{$p}: -v($v);
+}
+
+@mixin -v2($p, $v) {
+	-moz-#{$p}: -moz-#{$v};
+	-webkit-#{$p}: -webkit-#{$v};
+	-ms-#{$p}: -ms-#{$v};
+	-o-#{$p}: -o-#{$v};
+	#{$p}: $v;
+}
+
+
+
+@mixin bullets($time, $n){
+	@for $i from 1 through $n {
+		&:nth-child(#{$i}){
+			@include -v(animation-delay, $time * $i / $n / 2);
+		}
+	}
+}
+
+@mixin keyframes($animationName) {
+    @-webkit-keyframes #{$animationName} {
+        @content;
+    }
+    @-moz-keyframes #{$animationName} {
+        @content;
+    }
+    @-o-keyframes #{$animationName} {
+        @content;
+    }
+    @keyframes #{$animationName} {
+        @content;
+    }
+}
+
+@mixin media-only($s) {
+	$previous: 0;
+	@each $size, $width in $screen-sizes {
+		@if $size == $s {
+			@media screen and (min-width: $previous) and (max-width: $width - 1px){
+				@content;
+			}
+		}
+		$previous: $width;
+	}
+}
+
+@mixin media-up($s) {
+	$previous: 0;
+	@each $size, $width in $screen-sizes {
+		@if $size == $s {
+			@media screen and (min-width: $previous){
+				@content;
+			}
+		}
+		$previous: $width;
+	}
+}
+
+@mixin media-up-to($size) {
+	$width: map-get($screen-sizes, $size);
+    @media screen and (max-width: $width - 1px) {
+    	@content;
+    }
+}
+
+@mixin screen-states($sizes){
+	$previous: 0;
+	$last: nth(map-keys($sizes), length($sizes));
+	content: "#{$last}";
+	@each $size, $width in $sizes {
+		$prefix: - $size;
+		@media screen and (min-width: $previous) and (max-width: $width - 1px){
+			&{
+				content: "#{$size}";
+			}
+		}
+		$previous: $width;
+	}
+}
+
+@mixin visibility($classname : ""){	
+	
+	.hide#{$classname}{
+		display: none !important;
+	}
+
+	.show#{$classname}{
+		display: block !important;
+	
+		&.inline{
+			display: inline !important;
+		}
+		&.inline-block{
+			display: inline-block !important;
+		}
+	}
+}
+
+@mixin visibility-classes($sizes){	
+	@at-root {
+	@include visibility;
+	$previous: 0;
+	$last: nth(map-keys($sizes), length($sizes));
+
+		@each $size, $width in $sizes {
+			$prefix: -#{$size}-up;
+			@media screen and (min-width: $previous) {
+				@include visibility($prefix);				
+			}
+
+			$prefix: -#{$size};			
+			@if $size == $last{
+				@media screen and (min-width: $previous){			
+					@include visibility($prefix);
+				}
+			} @else {
+				@media screen and (min-width: $previous) and (max-width: $width){
+					@include visibility($prefix);				
+				}
+			}
+			$previous: $width;
+		}
+	}
+}
+
+@mixin pull($prefix : ""){
+	.#{$prefix}pull-left{
+		float: left !important;
+	}
+	.#{$prefix}pull-right{
+		float: right !important;
+	}
+}
+
+@mixin push-x($len, $prefix : ""){
+	*[class*="col#{$prefix}-push-"],
+	*[class*="col#{$prefix}-pull-"]{
+		position: relative;
+	}
+	@for $i from 1 through $len {
+		>.col#{$prefix}-push-#{$i}{ 
+			left: 100% * $i / $len; 
+		}
+		>.col#{$prefix}-pull-#{$i}{ 
+			left: -100% * $i / $len; 
+		}
+	}
+	>.col#{$prefix}-no-pull,
+	>.col#{$prefix}-no-push{
+		left: 0;
+	}
+}
+
+
+
+@mixin columns($len, $prefix){
+	@for $i from 1 through $len {
+	  >.col#{$prefix}-#{$i}{ width: 100% * $i / $len; }
+	}	
+}
+
+@mixin offset($len, $prefix){
+	@for $i from 1 through $len {
+	  >.col#{$prefix}-offset-#{$i}{ margin-left: 100% * $i / $len; }
+	}
+	>.col#{$prefix}-no-offset{ margin-left: 0; }
+}
+
+@mixin svg-icon($v, $c, $prop: background){
+	$color-icon: $c;
+	#{$prop}: url($v);
+};
+
+@mixin icon($i, $c : null, $w : null, $h : null){
+	content: "";
+	position: relative;
+	display: inline-block;
+	$c: nth($i, 1) !default;
+	$w: nth($i, 2) !default;
+	$h: nth($i, 3) !default;
+	height: #{$h+"px"};
+	width: #{$w+"px"};
+	background: no-repeat;
+	background-size: contain;
+	background-image: url(svg($i, $c));
+}
+
+@mixin grid($len, $padding, $sizes: null){
+	@at-root {
+		.columns-#{$len}{
+			margin: 0 (-$padding/2);
+			>*[class*="col-"]{
+				float: left;
+				min-height: 1px;
+				padding: 0 $padding/2;
+				width: 100%;
+			}
+			&.no-gutter{
+				margin: 0;
+				>*[class*="col-"]{
+					padding: 0;		
+				}
+			}
+			@include pull();
+			@include columns($len, null);
+			@include offset($len, null);
+			@include push-x($len, null);
+			@if $sizes {
+				$previous: 0;
+				@each $size, $width in $sizes {
+					$prefix: -$size;
+					$up: -$size+ -up;				
+					@media screen and ( max-width: $width - 1px ){
+						@include pull($size+ -up-to-);
+						@include columns($len, $prefix);
+						@include offset($len, $prefix);
+						@include push-x($len, $prefix);
+					}
+					@media screen and ( min-width: $previous ){
+						@include pull($size+ -up-);
+						@include columns($len, $up);
+						@include offset($len, $up);
+						@include push-x($len, $up);
+					}
+					$previous: $width;
+				}
+			}
+		}
+	}
+}
+
+@mixin social-icon($color, $url){
+	background-color: $color;
+	@include retina-img($url);
+	&:hover{
+		background-color: $color - #111;
+	}
+}
+
+@mixin media-desktop{
+	@include media-up($media-desktop){
+		@content;
+	}
+}
+
+@mixin media-mobile{
+	@include media-up-to($media-mobile){
+		@content;
+	}
+}
+
+@mixin pseudo($cover: all, $content : ""){
+	display: block;
+	content: $content;
+	@if $cover == all{
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+	}
+}
+@mixin shadow($radius : 10px, $opacity : .2){
+	&:after{
+		@include pseudo;
+	    z-index: -1;
+	    height: 10px;
+	    max-width: $wrap-width-full - 40px;
+	    bottom: 0;
+	    top: auto;
+	    box-shadow: 0 0 $radius rgba(black, $opacity);
+	    border-radius: 50%;
+	}
+
+}
+
+@mixin gui-color($bg, $color: white, $border: $bg){
+	background-color: $bg;
+	border-color: $border;
+	// color: white;
+	// &:hover{ background-color: $bg + #080808; border-color: $bg + #080808; }
+	// &:active{ background-color: $bg - #131313; border-color: $bg - #131313;}
+	&:hover{ background-color: $bg - #111; border-color: $border; }
+	&:active{ background-color: $border - #333; border-color: $border - #111;}
+}
+
+@mixin vertical-gradient($top, $bottom, $suffix : ""){
+    background#{$suffix}: $top; /* Old browsers */
+    background#{$suffix}: -moz-linear-gradient(top,  $top 0%, $bottom 100%); /* FF3.6+ */
+    background#{$suffix}: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$top), color-stop(100%,$bottom)); /* Chrome,Safari4+ */
+    background#{$suffix}: -webkit-linear-gradient(top,  $top 0%,$bottom 100%); /* Chrome10+,Safari5.1+ */
+    background#{$suffix}: -o-linear-gradient(top,  $top 0%,$bottom 100%); /* Opera 11.10+ */
+    background#{$suffix}: -ms-linear-gradient(top,  $top 0%,$bottom 100%); /* IE10+ */
+    background#{$suffix}: linear-gradient(to bottom,  $top 0%,$bottom 100%); /* W3C */
+    // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$top', endColorstr='$bottom',GradientType=0 ); /* IE6-9 */
+}
+
+@mixin vertical-gradient-2($pre, $top, $bottom, $suffix : ""){
+    background#{$suffix}: $pre, $top; /* Old browsers */
+    background#{$suffix}: $pre, -moz-linear-gradient(top,  $top 0%, $bottom 100%); /* FF3.6+ */
+    background#{$suffix}: $pre, -webkit-gradient(linear, left top, left bottom, color-stop(0%,$top), color-stop(100%,$bottom)); /* Chrome,Safari4+ */
+    background#{$suffix}: $pre, -webkit-linear-gradient(top,  $top 0%,$bottom 100%); /* Chrome10+,Safari5.1+ */
+    background#{$suffix}: $pre, -o-linear-gradient(top,  $top 0%,$bottom 100%); /* Opera 11.10+ */
+    background#{$suffix}: $pre, -ms-linear-gradient(top,  $top 0%,$bottom 100%); /* IE10+ */
+    background#{$suffix}: $pre, linear-gradient(to bottom,  $top 0%,$bottom 100%); /* W3C */
+    // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$top', endColorstr='$bottom',GradientType=0 ); /* IE6-9 */
+}
+
+
+@mixin linear-gradient($color-from, $color-to, $deg, $suffix : ""){
+	background#{$suffix}: -moz-linear-gradient($deg,  $color-from 25%, $color-to 75%); /* FF3.6-15 */
+	background#{$suffix}: -webkit-linear-gradient($deg,  $color-from 25%, $color-to 75%); /* Chrome10-25,Safari5.1-6 */
+	background#{$suffix}: linear-gradient($deg,  $color-from 25%, $color-to 75%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+
+@mixin horizontal-gradient($left, $right, $start: 0%, $end: 100%, $suffix : ""){
+    background#{$suffix}: $left; /* Old browsers */
+    background#{$suffix}: -moz-linear-gradient(left, $left $start, $right $end); /* FF3.6+ */
+    background#{$suffix}: -webkit-gradient(linear, bottom left, bottom right, color-stop(0%, $left), color-stop($end, $right)); /* Chrome,Safari4+ */
+    background#{$suffix}: -webkit-linear-gradient(left, $left $start, $right $end); /* Chrome10+,Safari5.1+ */
+    background#{$suffix}: -o-linear-gradient(left,  $left $start, $right $end); /* Opera 11.10+ */
+    background#{$suffix}: -ms-linear-gradient(left, $left $start, $right $end); /* IE10+ */
+    background#{$suffix}: linear-gradient(to right, $left $start, $right $end); /* W3C */
+    // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$top', endColorstr='$bottom',GradientType=0 ); /* IE6-9 */
+}
+
+@mixin retina-images($img, $hi-img, $prop : background-image){
+	#{$prop}: $img;	
+	@media only screen and ( -webkit-min-device-pixel-ratio: 2),
+	only screen and (   min--moz-device-pixel-ratio: 2),
+	only screen and (   -o-min-device-pixel-ratio: 2/1),
+	only screen and (        min-device-pixel-ratio: 2),
+	only screen and (           min-resolution: 192dpi),
+	only screen and (            min-resolution: 2dppx){
+		#{$prop}: $hi-img;
+	}
+
+}
+
+@mixin retina-img($img, $prop : background-image, $suffix:"@2x", $folder : $images-folder){
+	$image: image-type($img);
+	$image-std : #{"url(" + $folder + $img+ ")"};
+	@if length($image) > 1 {
+		$image-hi : #{"url(" + $folder + nth($image, 1) + $suffix + nth($image, 2) + ")"};
+		@include retina-images($image-std, $image-hi, $prop);
+	} @else{ 
+		#{$prop}: $image-std;
+	}
+}
+
+@mixin thumb_shadow($h : 210px){
+	&:after{
+		@include linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.7));
+	}
+}
+
+@mixin next-section-arrow($c){
+	position: relative;
+	&:after{
+	    content: "";
+	    left: 50%;
+	    border: 8px solid transparent;
+	    margin-left: -8px;
+	    border-top-color: $c;
+	    bottom: -16px;
+	    position: absolute;
+	    @include -v(transform, scaleX(2.5));
+	}
+
+}
+@mixin placeholder{
+	&::-webkit-input-placeholder { /* Safari, Chrome and Opera */
+	  @content;
+	}
+
+	&:-moz-placeholder { /* Firefox 18- */
+	  @content;
+	}
+
+	&::-moz-placeholder { /* Firefox 19+ */
+	  @content;
+	}
+
+	&:-ms-input-placeholder { /* IE 10+ */
+	  @content;
+	}
+
+	&::-ms-input-placeholder { /* Edge */
+	  @content;
+	}
+
+	&:placeholder-shown { /* Standard one last! */
+	  @content;
+	}	
+}
+
+@mixin bl-grid($per-row, $extra : 0, $gutter : 5px) {
+	$item-extra : ($extra / $per-row);
+  &{
+    @if $extra != 0{  	
+	  	width: auto;    	
+	}else{
+	  	width: (100% + $item-extra);
+	}
+  	// margin-left: calc(#{-$gutter} - #{$item-extra} );
+  }
+  & > * {
+    width: (100%/$per-row);
+ 	
+
+    $nth-equation: #{$per-row}n+'+'+1;
+    &:nth-of-type(n) { clear: none; }
+    &:nth-of-type(#{$nth-equation}) { clear: both; }
+    @if $extra != 0{  	
+    	&:nth-child(n){
+			@include -v(transform, none);    		
+    	}
+	    @for $i from 1 through $per-row {
+			$nth: #{$per-row*2}n+'+'#{$i+$per-row};
+			&:nth-child(#{$nth}){
+				@include -v(transform, translateX(-#{$extra * (100 / (100 + ($extra/1%))) }));
+			}
+	    }
+    }
+  }
+}
+ 
+@mixin bl-grids($size, $extra) {
+  .block-grid.#{$size}-1  { @include bl-grid(1, $extra);  }
+  .block-grid.#{$size}-2  { @include bl-grid(2, $extra);  }
+  .block-grid.#{$size}-3  { @include bl-grid(3, $extra);  }
+  .block-grid.#{$size}-4  { @include bl-grid(4, $extra);  }
+  .block-grid.#{$size}-5  { @include bl-grid(5, $extra);  }
+  .block-grid.#{$size}-6  { @include bl-grid(6, $extra);  }
+  .block-grid.#{$size}-7  { @include bl-grid(7, $extra);  }
+  .block-grid.#{$size}-8  { @include bl-grid(8, $extra);  }
+  .block-grid.#{$size}-9  { @include bl-grid(9, $extra);  }
+  .block-grid.#{$size}-10 { @include bl-grid(10, $extra); }
+  .block-grid.#{$size}-11 { @include bl-grid(11, $extra); }
+  .block-grid.#{$size}-12 { @include bl-grid(12, $extra); }
+}
+
+@mixin block-grid($grid-gutter-width, $extra : 0){
+	@at-root {	
+		// [class*="block-grid-"] {
+		.block-grid{
+		  display: block;
+		  margin: -($grid-gutter-width/2);
+		  padding: 0;		  
+		  @include clearfix();
+		}
+		 
+		// .block-grid-item {
+		.block-grid > *{
+		  display: inline;
+		  margin: 0;
+		  padding: ($grid-gutter-width/2);
+		  height: auto;
+		  float: left;
+		  list-style: none;
+		}
+	 
+		@include bl-grids(xxs, $extra); 
+		@include media-up(xs){ @include bl-grids(xs, $extra) }
+		@include media-up(s) { @include bl-grids(s, $extra) }
+		@include media-up(m) { @include bl-grids(m, $extra) }
+		@include media-up(l) { @include bl-grids(l, $extra) }
+		@include media-up(xl) { @include bl-grids(xl, $extra) }
+		@include media-up(xxl) { @include bl-grids(xxl, $extra) }
+	}
+}

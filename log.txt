@@ -1,0 +1,3 @@
+- Created a browser-supported svg() function for inserting svgs directly in CSS. This enables to easily change a color on the spot or add extra space. (Example: see selects).
+- Created smart vendor-prefixing mixin (and function).
+- Changed %text-input to %input-text (may differ from existing projects).

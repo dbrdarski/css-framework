@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="nl">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" href="css/global.css">
+
+		<title>CSS Framework</title>
+		<meta name="description" content="Beschrijving">
+		<style>
+			body{
+				max-width: 750px;
+				margin: 50px auto;
+				padding: 0 30px;
+			}
+			ul{
+				margin: 20px 0;
+			}
+			.footer-bottom{
+			    padding: 50px;
+			    background: #ebebea;
+			    margin-top: 100px;
+			    border-radius: 4px;
+			}
+		</style>
+	</head>
+	<body class="homepage">
+		<header class="header" id="header">
+			<div class="wrap-inner">
+				<div class="columns-12 no-gutter">
+<!-- 					<div class="col-left col-m-up-4">						
+						<a class="logo"></a>
+					</div>
+					<div class="col-right col-m-up-8">
+						<div class="navigation">
+							<div id="mobile-nav-switcher" class="hide-m-up"></div>
+							<div class="primary-nav">
+								<ul>
+									<li>
+										<a href="#">Link 1</a>
+									</li>
+									<li>
+										<a href="#">Link 2</a>
+									</li>
+									<li>
+										<a href="#">Link 3</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div> -->
+				</div>
+			</div>
+		</header>
+		<section class="top-widgets">
+			
+		</section>
+		<main class="main-area">
+		<div class="content">
+			<h1>CSS / SASS framework</h1>
+
+			<h2>TO-DOs</h2>
+			<ul><li><strong>Functions</strong></li>
+				<li><strike>SVG HTML-escaping function</strike></li>
+				<li>Add vendor prefixing for properties (-webkit-transition: -webkit-transform 1s;)</li>
+			</ul>
+			<ul>
+				<li><strong>Elements & Mixins</strong></li>
+				<li>Form elements generator</li>
+				<li>Make custom select identical to HTML select</li>
+			</ul>
+			<section>
+				
+				<h2>Forms</h2>
+				<form action="" class="niceform">
+					<h2 class="form-title">Direct contact</h2>
+					<div class="form-row columns-12">
+						<div class="col-s-up-4">
+							<label for="text">Text field</label>
+						</div>
+						<div class="col-s-up-8">
+							<input type="text" name="text" id="text" class="wide" placeholder="Name">
+						</div>
+					</div>
+					<div class="form-row columns-12">
+						<div class="col-s-up-4">
+							<label for="email">Email field</label>
+						</div>
+						<div class="col-s-up-8">
+							<input type="email" name="email" id="email" class="wide" placeholder="Email">
+						</div>
+					</div>					
+					<div class="form-row columns-12">
+						<div class="col-s-up-4">
+							<label for="select">Select</label>
+						</div>
+						<div class="col-s-up-8">
+							<select name="select" id="" class="wide">
+								<option>Select option</option>
+								<option value="one">One</option>
+								<option value="two">Two</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-row columns-12">
+						<div class="col-s-up-4">
+							<label for="upload">Upload</label>
+						</div>
+						<div class="col-s-up-8">
+							<input type="file" name="upload" id="upload" class="wide" data-default-text="No files selected">
+						</div>
+					</div>
+					<div class="form-row columns-12">
+						<div class="col-s-up-4">
+							<label for="org">Radio</label>
+						</div>
+						<div class="col-m-up-8">
+							<input type="radio" id="radio-one" name="one"><label for="radio-one">Ja</label><br>
+							<input type="radio" id="radio-two" name="one" checked=""><label for="radio-two">Nee</label><br>
+						</div>
+					</div>
+					<div class="form-row columns-12">
+						<div class="col-s-up-4">
+							<label for="org">Checkbox*</label>
+						</div>
+						<div class="col-s-up-8">
+							<input type="checkbox" id="one" name="one"><label for="one">Optie #1</label><br>
+							<input type="checkbox" id="two" name="two" checked=""><label for="two">Optie #2</label><br>
+						</div>
+					</div>
+					<div class="form-row columns-12">
+						<div class="col-s-up-4">
+							<label for="msg">Vraag**</label>
+						</div>
+						<div class="col-s-up-8">
+							<textarea name="msg" id="" class="wide"></textarea>
+						</div>
+					</div>
+					<div class="form-row columns-12">
+						<div class="col-s-up-4">
+						</div>
+						<div class="col-s-up-8 text-center">
+							<input type="submit" class="btn primary" value="Versturen">
+						</div>
+					</div>
+				</form>
+
+			</section>
+
+		</div>
+		</main>
+		<section class="bottom-widgets">
+		</section>
+		<footer class="footer" id="footer">
+			<div class="footer-top"></div>
+			<section id="footer-bottom" class="footer-bottom text-center">CSS Framework</section>
+		</footer>
+		<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+		<script src="js/main.js"></script>	
+	</body>
+</html>

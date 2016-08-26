@@ -1,0 +1,52 @@
+$screen-sizes:  (xxs: 480px, xs: 640px, s:960px, m: 1024px, l: 1170px, xl: 1300px);
+$media-desktop: m; 		// media-up(m); 
+$media-mobile: s;  		// media-up-to(s);
+
+$wrap-width-full: 1400px;
+$wrap-width-inner: 1170px;
+$wrap-small: 750px;
+
+
+$c-linkedin: #0976b4;
+$c-facebook: #3b5998;
+$c-twitter: #55acee;
+
+$c-error: #c0392b;
+// $c-error: #e7394e;
+
+$c-primary: #34495e;
+$c-secondary: #8e44ad;
+$c-warning: #f1c40f;
+
+// $c-primary-light:  #914ba1;
+// $c-primary-shadow: #854694;
+// $c-primary-strong: #632271;
+
+$c-text: #686b6d;
+$c-text-light: #adb4b7;
+$c-widget-light: #e3e4e1;
+
+// $c-deep-blue: #2c3a4a;
+// $c-secondary-bg: #3ecade;
+// $c-dark-neutral: #1f2731;
+
+// $c-black: #1c2830;
+
+$c-black: #25282a;
+$c-neutral: #3b4c60;
+$c-neutral: #7f8c8d;
+// $c-light-gray: #f0f3f3;
+$c-light-gray: #ebebea;
+
+// $c-gray: #525c63;
+$c-dark-gray: #74787a;
+$c-border-gray: #e3e7e7;
+
+$font-primary: 'HelveticaNeue', Arial, sans-serif;
+$font-titles:  'Proxima Nova';
+
+$images-folder: '../img/';
+
+
+@import "utilities";
+@import "icons";

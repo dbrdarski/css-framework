@@ -1,0 +1,617 @@
+%gui-element{
+	//template for buttons and inputs (excludes radios and checkboxes)
+	display: inline-block;
+	padding: .6em;
+	// border-radius: 3px;
+	font-size: 1em;
+	font-size: .875rem;
+	height: 2.25rem;
+	padding: 0 .75rem;
+	line-height: 2.35rem;
+	white-space: nowrap;
+	border: 0 none;
+	outline: 0 none;
+	font-family: $font-titles;
+
+	.shadow-3d &{
+  		@include -v(box-shadow, 0 2px rgba(black, .07));
+	}
+}
+
+%reset-select{
+	// hides the default arrow  button for selects
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	&::-ms-expand {
+	    display: none;
+	}
+}
+
+%check-radio{
+display: none;
+	&+label{
+		color: $c-text;
+		position: relative;
+		padding: 0 0 0 1.8rem !important;
+		// &.alt{
+		// 	padding-left: .55em !important;
+		// }
+		&:before{
+			content: "";
+			position: absolute;
+			height: 18px; width: 18px;
+			display: inline-block;
+			font-family: Flaticon;
+			text-align: center;
+			line-height: 1rem;
+			left: 0;
+			top: 0;
+			// top: -2px;
+		}
+	}
+
+	&:disabled+label{
+		color: $c-border-gray;
+	}
+}
+
+%form-input{
+  $color: #333;
+  @extend %gui-element;
+  outline: 0 none; 
+}
+
+%form-row{
+	& + & {
+		padding-top: 15px;
+	}
+	@include media-up-to(s){
+		padding-top: 15px;	
+	}
+
+}
+
+%select{
+	// font-family: $font-titles;
+	// font-size: .875em;
+	// height: 2.5em;
+ 	// line-height: 2em;
+    padding-top: 0;
+    padding-bottom: 0;
+    background-position: right center;
+    background-repeat: no-repeat; 
+    background-color: white;
+    background-image: url(svg($path-arrow-down, #959ea6, 18));
+    // background-size: 30px 7px;	
+}
+
+
+%text-input, %btn{
+	@extend %gui-element;
+}
+
+%text-input{
+	display: inline-block;
+	background-color: white;
+	border-radius: 4px;
+	// @include -v(box-shadow, 0 0 0 2px #e5eaec inset !important);
+
+	// border-bottom: 2px solid $c-border-gray;	
+	// padding: .675em 1.125em;
+	color: $c-text;
+	&:focus{
+		// border-color: $c-neutral;		
+		@include -v(box-shadow, 0 0 0 2px $c-primary inset !important);
+	}
+	&.error, &:invalid{
+		@include -v(box-shadow, 0 0 0 2px $c-error inset !important);
+		color: $c-error !important;
+	}
+	@include placeholder{
+		color: $c-text-light;
+	    padding-bottom: 0;
+	}
+}
+
+%text-input{
+	.niceform &{
+		&:not(textarea){
+			$height: 2.5rem;
+			height: $height;
+			line-height: -pp($height);
+			@include -v(transform, none);
+			@include -v(transition, -v-transform .4s);
+
+		}
+		font-size: 1rem;
+		font-weight: 500;
+		padding-left: .875rem;
+		padding-right: .875rem;
+		background-color: $c-light-gray;
+		color: #686d72;
+		// @include -v(box-shadow, 0 2px 0 rgba(black, .08));
+		@include -v(box-shadow, none);
+		&:focus{
+			background-color: white;
+			@include -v(box-shadow, 0 2px 0 $c-primary);
+		}
+	}
+}
+
+@mixin form($options : ()){
+	
+	$c-input: map-get($options, color-default);
+	$c-input: $c-neutral !default;
+	
+	$c-input-active: map-get($options, color-active);
+	$c-input-active: $c-primary !default;
+	
+	$c-input-text: map-get($options, color-text);
+	$c-input-text: $c-text !default;
+	
+	$c-input-error: map-get($options, color-error);
+	$c-input-error: $c-error;
+
+	$form-line-height: 2.5rem;
+	$form-line-margin: 1.125rem;
+	
+	@at-root{
+		input[type="checkbox"]{
+			@extend %check-radio;
+			&+label{
+				// color: $c-black;
+				position: relative;
+				padding-left: 1.8rem;
+				color: $c-input !important;
+				&:before{
+					top: 2px;			
+					// font-family: Flaticon;
+					// text-align: center;
+					line-height: 2rem;
+					// line-height: calc( 1.5em + 4px );
+					// line-height: 1.8em;
+					font-size: .55rem;
+					color: white;
+					border-radius: 3px;
+					background: #e0e0e0 !important;
+				}
+			}
+			&+label:hover:before, &:hover+label:before{
+				// content: "\e003";		
+			}
+			&:checked+label{
+				// color:  $c-input-active !important;
+				&:before{
+					background: url($svg-check) center no-repeat $c-input-active !important;
+					// background: url(../img/checkbox.svg) center no-repeat $c-input-active !important;
+				}
+			}
+			&:disabled+label, &[disabled]+label{
+				&:before{
+					background: rgba($c-input-active, .5) !important;
+				}
+			}
+			&:disabled:not(:checked)+label:before{
+				content: "";
+			}
+		}
+
+		input[type="radio"]{
+			@extend %check-radio;
+			&+label{
+				&:before{
+					content: "";
+					top: 2px;
+					width: 1rem;
+					height: 1rem;
+					border-radius: 50%;
+					background-color: #e0e0e0;
+				}
+				&, &:before{
+					color: $c-input !important;
+				}
+			}
+			&+label:hover, &:hover+label{
+				content: "";
+				&, &:before{			
+					color: $c-input !important;
+				}
+			}
+			&:checked+label{
+				&, &:before{
+					color: $c-input !important;
+				}
+			}
+			&:checked+label:before{
+				content: "";
+				background-color: $c-input-active;
+				$box-shadow:  0 0 0 2px $c-input-active inset, 0 0 0 4px white inset;
+				@include -v(box-shadow, $box-shadow);
+			}
+			&:disabled:not(:checked)+label:before{
+				content: "";
+			}
+			&:disabled+label, &[disabled]+label{
+				&, &:before{
+					color: rgba($c-input, .5) !important;
+				}
+				
+			}
+		}
+
+		input[type="text"], input[type="email"], .file-input, textarea, select, [type="file"]{
+			@extend %text-input;	
+		}
+
+		textarea{
+			white-space: normal;
+			padding-top: .5rem;
+			padding-bottom: .5rem;
+			line-height: 1.225em;
+			@for $i from 1 through 10 {
+				&[rows="2"]{
+					min-height: 2 * 2.75rem + 1 * 1.125rem;
+				}
+			}
+		}
+
+		input.ready[type="file"]{
+			opacity: 0;
+			z-index: 1;
+			position: relative;
+			cursor: pointer;
+		}
+
+		.file-input-container{
+		    position: relative;		
+		    height: 0;
+			top: -$form-line-height;
+		}
+
+		.file-input{
+		    position: relative;
+		    width: 100%;
+		    .file-input-btn{
+		    	position: absolute;
+		    	top: 4px;
+		    	right: 4px;
+		    	bottom: 4px;
+		    	width: auto;    	
+		    	height: auto;
+				background: $c-input-active;
+				color: white;
+				font-size: 13px;
+				font-weight: bold;
+				padding: 0 .75em;
+				padding-right: 2.5em;
+				line-height: 2.35em;
+				border-radius: 2px;
+				font-weight: bold;
+				cursor: pointer;
+
+				// @include -v(box-shadow, 0 2px #2e4255);
+				&:after{
+					position: absolute;
+					right: .75em;
+					display: inline-block;
+					content: "";
+					background: no-repeat center url(../img/icon-plus-alt.svg);
+					height: 2em;
+					width: 1.25em;
+				}
+		    }
+		}
+		.form-row{
+			@extend %form-row;
+		}
+
+	}
+}
+
+@include form;
+
+%btn{
+	$button-radius: 4px;
+	& + &{
+		margin-left: 1.125em;
+	}
+	display: inline-block;
+	color: white;
+	font-family: $font-primary;
+	cursor: pointer;	
+	padding: 0 1rem !important;
+	font-weight: 700;
+	font-size: .875rem !important;
+	font-size: .8125rem !important;
+	background: $c-primary;
+	border-radius: 100px;
+	&, .content & {color: white;}
+
+	&.wide{		
+		text-align: center;
+		margin-left: 0;
+		margin-right: 0;
+	}
+	&.small{
+		height: 1.65rem;
+		line-height: 1.75rem;
+		font-size: .75rem;
+		font-weight: 700;
+		text-transform: none;
+		// padding: .5em .75em;
+		// padding: .675rem .875rem;
+	}
+	// &.thin{
+	// 	@extend %btn.small;
+	// }
+	&.neutral{
+		background: $c-neutral;
+	}
+	&.secondary{
+		background: $c-secondary;
+	}
+	&.opaque{
+		background: rgba(black, .20);
+		color: white;
+	}
+	&.opaque-alt{
+		background: rgba(white, .45);
+		color: white;
+	}
+	&.transparent{
+		background: transparent;
+		color: $c-text-light;
+		@include -v(box-shadow, 0 0 0 1px $c-text-light inset);
+	}
+	&.inverted{
+		background: white;
+		@include -v(box-shadow, 0 0 0 1px #ddd inset);
+		color: $c-secondary;
+	}
+	&.linkedin{
+		line-height: 2.35rem;
+		background: $c-linkedin;
+		&:before{
+			@include icon($path-linkedin, white, 19, 19);
+			margin-right: .5rem;
+			top: 3px;
+		}
+	}
+	&.facebook{
+		line-height: 2.35rem;
+		background: $c-facebook;
+		&:before{
+			@include icon($path-facebook, white);
+			margin-right: .65rem;
+			top: 3px;
+		}
+	}
+	&.twitter{
+		line-height: 2.35rem;
+		background: $c-twitter;
+		&:before{
+			@include icon($path-twitter, white);
+			margin-right: .65rem;
+			top: 2px;
+		}
+	}
+	&.light{
+		background: $c-light-gray;
+		color: $c-text-light;
+	}
+	&.add-more:after{
+		margin-left: .5rem;
+		content: url(../img/icon-plus.svg);
+	    position: relative;
+	    top: 1px;
+	}
+	&.more-link{
+		text-align: left;
+		background-position: center right;
+		background-repeat: no-repeat;
+		background-image: url(svg($path-arrow-right, white, 17));
+		// background-image: url(../img/link-more.svg);
+		padding-right: 4em;
+	}
+}
+
+.btn{
+	@extend %btn;
+}
+
+select{
+	@extend %reset-select;
+	@extend %select;
+// 	padding-top: calc(.6em - 3px);
+// 	padding-right: 30px;
+// 	border: 1px solid #ddd;
+	background: {
+		// image: url($svg-select-arrow-dbl);
+		// image: url(../img/arrow-select-double.svg);
+		repeat: no-repeat;
+		position: right center;
+	}
+	// @include svg-icon($svg-menu-arrow-down, white, background-image);
+	&:focus{		
+		border-bottom-right-radius: 0;
+  		border-bottom-left-radius: 0;
+		background-color: $c-light-gray;
+		color: rgba($c-black, .88);
+		border-color: #ccc;
+		// background-image: url(../img/arrow-up.png);
+		// background-image: url(../img/arrow-up@2x.png);
+	}
+// 	// background: $c-light-gray url(../img/arrow-down@2x.png) no-repeat center right;
+// 	background-size: 15px 7px;	
+// 	color: rgba($c-black, .73);
+// 	line-height: 1.2em;
+	&::selection {
+		background: $c-neutral;
+		border-color: $c-neutral;
+	}
+}
+
+.niceform{
+	.form-title{
+		font-size: 27px;
+		font-weight: 900;
+		color: $c-primary;
+		@include media-up(s){margin-bottom: 2.25rem;}
+	}
+	margin-top: 2.25rem;
+	margin-bottom: 2.25rem;
+	%gui-element{
+		font-size: 1rem;
+	}
+	.form-row{
+		line-height: 0;
+		& + .form-row{
+			padding-top: 1.125em;
+		}
+		%text-input, textarea, label, select{
+			width: 100%;
+		}
+	}
+	select:focus{
+		background-color: white;
+	}
+	.file-input-btn{
+		top: .5rem;
+		right: .5rem;
+		bottom: .5rem;
+	}
+
+	.form-row> *:last-child > label{
+	    display: inline-block;
+	    margin: 5px 0;
+		font-size: .875rem;
+		font-weight: bold;
+		line-height: 1.5em;
+	}
+	.form-row> *:first-child > label{
+		font-family: $font-titles;
+		font-size: 1rem;
+		font-weight: bold;
+		line-height: 1.875rem;
+		vertical-align: text-bottom;
+	}
+	textarea{
+		// min-height: 160px;
+		padding-top: .75rem;
+		padding-bottom: .75rem;		
+	}
+	// [type="submit"].btn{
+	// 	@extend %text-input;
+	// 	border-radius: 0;
+	// 	text-align: center;
+	// 	background-color: $c-black;
+	// 	width: 100%;
+	// 	color: white !important;
+	// 	@include -v(box-shadow, none !important);
+	// 	font-weight: bold !important;
+	// 	font-size: 1rem;
+	// }
+}
+
+.c-select{
+	$color: #333;
+	position: relative;
+	$p: 0 1rem;
+	cursor: pointer;
+	color: rgba($color, .73);
+	font-family: $font-titles;
+	.c-select-inner{
+		background: $color;
+		border: 1px solid #ddd;
+	}
+	.c-no-results, .c-select-inner{
+		display: none;
+	}
+	&, .c-label, .c-search, .c-search > input{		
+		height: 2.25rem;
+		line-height: 2.25rem;
+	}
+	.c-option, .c-no-results{
+		padding: $p;
+		font-size: .75em;
+		border-top: 1px solid #ddd;
+	}
+	.c-options{
+		max-height: 7rem;
+		overflow-y: auto;
+	}
+	.c-multi+.c-multi:before{
+		display: inline;
+		content: ", ";
+	}
+	.c-option{
+		&:before{
+			position: relative;
+			content: "";
+			display: inline-block;
+			height: .875rem;
+			width: .875rem;
+		    top: 2px;
+		    margin-right: .5rem;
+			background: white no-repeat center;
+			background-size: .5rem auto;
+			border-radius: 3px;
+			background-image: url($svg-check);
+		}
+		&.selected{
+			display: block !important;
+			&:before{
+			background-color: $color;
+			}
+		}
+	}
+	.c-search{
+		position: relative;
+		background: white no-repeat right center;
+		background-size: auto 12px;
+		background-image: url($svg-search-select);
+	}
+	.c-search input{
+		font-family: $font-primary;
+		position: absolute;
+		top: 0; left: 0;
+		height: 100%;
+		width: 100%;
+		padding: $p;
+		padding-right: 2.25rem;
+		border: 0 none;
+		background: transparent;
+	}
+	.c-label{
+		padding: $p;
+		background-color: white;
+		@extend %select;
+		@include -v(box-shadow, 0 0 0 1px #ddd inset);
+	    white-space: nowrap;
+	    text-overflow: ellipsis;
+	    padding-right: 2.25rem;		
+	}
+	.c-close{
+		background: white;
+		border: 1px solid #ddd;
+		text-align: center;
+		font-size: .875rem; 
+		border-radius: 3px;
+		margin: .875rem 1rem;
+		padding: .5rem;
+	    line-height: 1rem;
+	}
+	&[state="active"]{
+		z-index: 10;
+		.c-label{
+			background-color: #73000d;
+			@include -v(box-shadow, none);
+			background-image : url($svg-menu-arrow-down-select-white);
+			color: white;			
+		}
+		.c-select-inner{
+			display: block;
+		}
+	}
+}

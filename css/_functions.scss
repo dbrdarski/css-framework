@@ -1,0 +1,81 @@
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+  
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+  
+  @return $string;
+}
+
+@function image-type($string) {
+  $img-types: ('.png', '.jpg,', '.gif');
+  @each $type in $img-types {
+  	$index: str-index($string, $type);
+  	@if $index {
+  	  $output: str-replace($string, $type);
+	  @return ( $output, $type );
+	}
+  }
+  @return $string;
+}
+
+@function if($c, $true, $false){
+  @if $c {
+    @return ( $true );
+    } @else {
+      @return $false;
+    }
+}
+
+@function -pp($v){
+  $i:1px;
+  @if( unit($v) == "rem" ){
+    $i:.0625rem;
+  } @else if( unit($v) == "em" ){ 
+    $i:.0625em;
+  }
+  @return $v + $i;
+}
+
+@function -v($s, $pre:""){
+    @return #{str-replace(""+$s, '-v-', $pre)};
+}
+
+@function svg-encode($svg){
+    //
+    // Chunk up string in order to avoid 
+    // "SystemStackError: stack level too deep"
+    // 
+    $encoded:'';
+    $slice: 2000;
+    $index: 0;
+    $loops: ceil(str-length($svg)/$slice);
+    @for $i from 1 through $loops {
+        $chunk: str-slice($svg, $index, $index + $slice - 1); 
+        $chunk: str-replace($chunk,'"','\''); // " 
+        $chunk: str-replace($chunk,'<','%3C');
+        $chunk: str-replace($chunk,'>','%3E');
+        $chunk: str-replace($chunk,'&','%26');
+        $chunk: str-replace($chunk,'#','%23');
+        $encoded: #{$encoded}#{$chunk};
+        $index: $index + $slice; 
+    }
+    @return "#{$encoded}";
+}
+
+
+
+@function svg($svg-object, $fill : nth($svg-object, 1), $x : 0, $y : 0, $align-x : left, $align-y : top){
+  // $fill: nth($svg-object, 1) !default;
+  $alignment : (left: 1, center: 0, right: -1, top: 1, bottom: -1);
+  $width: nth($svg-object, 2);
+  $height: nth($svg-object, 3);
+  $new-width:  $x + $width;
+  $new-height:  $y + $height;
+  $height: nth($svg-object, 3) + $y;
+  $position-x: map-get($alignment, $align-x) * $width + $x;
+  $position-y: map-get($alignment, $align-y) * $height + $y;
+
+  @return "data:image/svg+xml;charset=utf8,"+svg-encode('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="#{$new-width}" height="#{$new-height}" viewBox="0 0 #{$position-x} #{$position-y}" fill="#{$fill}">#{nth($svg-object, 4)}</svg>');
+}

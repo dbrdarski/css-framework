@@ -1,0 +1,31 @@
+@mixin bottom-rounded-corners($r: 10px){
+	border-bottom-right-radius: $r;
+	border-bottom-left-radius:  $r;
+}
+@mixin right-rounded-corners($r: 10px){
+	border-top-right-radius: $r;	
+	border-bottom-right-radius: $r;
+}
+@mixin left-rounded-corners($r: 10px){
+	border-top-left-radius: $r;	
+	border-bottom-left-radius: $r;
+}
+@mixin top-rounded-corners($r: 10px){
+	border-top-right-radius: $r;
+	border-top-left-radius: $r;
+}
+
+hr{
+	border-color: #dfe2e2;
+}
+
+// @import "sections";
+// @import "widgets";
+// @import "nav";
+// @import "tabs";
+.footer-bottom{
+	
+}
+.footer-bottom:before{	 
+	
+}
