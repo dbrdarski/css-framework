@@ -1,0 +1,150 @@
+//
+// Grid system
+// --------------------------------------------------
+
+
+// Container widths
+//
+// Set the container width, and override it for fixed navbars in media queries.
+
+@screenSizes: xs sm md lg;
+
+.each(@list, @scope, @from: 1, @to : length(@list)){
+  .iterate(@i) when (@i <= @to){
+    .execute() when (@from <= @i ){
+      @scope();
+      .fn(extract(@list, @i));
+    }
+    .execute();
+    .iterate(@i+1);
+  }    
+  .iterate(@from);
+}
+
+.map(@list, @scope, @from: 1, @to : length(@list)){
+  @length: length(@list);
+  @scope();
+  body{
+    from : @from;
+  }
+  .prepare() when (@from < 0){ @start: @length + @from; }
+  .prepare() when (@to < 0){ @end: @length + @to; }
+  .prepare() when (@from > 0){ @start: @from; }
+  .prepare() when (@to > 0){ @end: @to; }
+  .init() when (@start < @end){ @inc: 1; }
+  .init() when (@start > @end){ @inc: -1; }
+
+  .iterate(@i){
+    .execute() when (@start <= @i ){
+      .fn(extract(@list, @i));
+    }
+    .execute();
+  }
+
+  .iterate(@i) when not (@i = @to){
+    .iterate(@i+1);
+  }
+
+  .prepare();
+  .init();
+  .iterate(@from);
+}
+
+.map-range(@scope; @range...){
+  .prepare-args() when ( length(@range) = 1 ) {
+    @from : 1;
+    @to : extract(@range, 1);
+  }
+  .prepare-args() when ( length(@range) = 2) {
+    @from : extract(@range, 1);
+    @to : extract(@range, 2);
+  }
+  .init() when ( @from < @to) {
+    @inc : 1;
+  }
+  .init() when ( @from > @to) {
+    @inc : -1;
+  }
+  .iterate(@i){
+    @scope();
+    .fn(@i);
+  }
+  .iterate(@i) when not (@i = @to){
+    .iterate(@i+@inc);
+  }
+  .prepare-args();
+  .init();
+  .iterate(@from);
+}
+
+.new-block-grid(@n){
+  .generate-columns(@block){
+    .map-range(@block, @n);
+  }
+  .mq-min(@block, @sizes : @screenSizes){
+    .generate-columns(@block, @class);
+    .each(@sizes, {      
+      .fn(@s){        
+        @size : 'screen-@{s}-min';
+        @media ( min-width :@@size){
+          .generate-columns(@block);
+        }
+      }
+    });
+  }
+  .mq-min({
+    .fn(@i){
+      &.@{s}-@{i}>.block{
+        width: 100% / @i;
+        padding: 0 @grid-gutter-width/2;
+      }
+    }
+  });
+}
+
+.media-iterator(min, @block, @sizes : @screenSizes){
+  .map(@sizes, {
+    @from: 2;
+    .fn(@s){
+      @size : 'screen-@{s}-min';
+      @media ( min-width :@@size){
+        @block();
+        .fn(@s);
+      }
+    }
+  })
+}
+
+.columns(@s, @i){
+  
+}
+
+
+// .block-grid{
+//   @s : xs;
+//   .new-block-grid(8);  
+// }
+
+#asd{
+  .map-range(
+    {
+      .fn(@i){
+        .asd{
+          asd: @i;
+        }
+      }
+    },
+  5);
+  .media-iterator(min, {
+    .fn(@s){
+      .map-range({
+        .fn(@i){
+          &.@{s}-@{i}>.block{
+            width: 100% / @i;
+            padding: 0 @grid-gutter-width/2;
+          }
+        }
+      }, 8);
+    }
+  });
+}
