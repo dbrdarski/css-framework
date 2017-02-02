@@ -1,0 +1,84 @@
+.list{
+	.first(@list, @scope){
+	  @scope();
+	  .fn(extract(@list, 1));  
+	}
+
+	.last(@list, @scope){
+	  @scope();
+	  .fn(extract(@list, length(@list)));
+	}
+
+	// .each(@list, @scope, @from: 1, @to : length(@list)){
+	//   .iterate(@i) when (@i <= @to){
+	//     .execute() when (@from <= @i ){
+	//       @scope();
+	//       .fn(extract(@list, @i));
+	//     }
+	//     .execute();
+	//     .iterate(@i+1);
+	//   }    
+	//   .iterate(@from);
+	// }
+
+	.map(@list, @scope, @from: 1, @to : length(@list)){
+	  @length: length(@list);
+	  @scope();
+	  
+	  // for negative index values count from end of list
+	  .prepare() when (@from < 0){ @start: @length + @from; }
+	  .prepare() when (@to < 0){ @end: @length + @to; }
+	  
+	  // otherwise use provided indexes
+	  .prepare() when (@from > 0){ @start: @from; }
+	  .prepare() when (@to > 0){ @end: @to; }
+	  
+	  // determine the direction of iteration (asc, desc)
+	  .init() when (@start < @end){ @inc: 1; }
+	  .init() when (@start > @end){ @inc: -1; }
+
+	  .iterate(@i){
+	    .execute(){
+	      .fn(extract(@list, @i));  // call .fn() mixin defined in passed ruleset @scope
+	    }
+	    .execute();
+	  }
+	  
+	  .iterate(@i) when not (@i = @end){
+	    .iterate(@i+@inc); // recursive call 
+	  }
+
+	  .prepare();
+	  .init();
+	  .iterate(@start); // call first iteration
+	}
+}
+
+.range{
+	.map(@scope; @range...){
+	  .prepare-args() when ( length(@range) = 1 ) {
+	    @from : 1;
+	    @to : extract(@range, 1);
+	  }
+	  .prepare-args() when ( length(@range) = 2) {
+	    @from : extract(@range, 1);
+	    @to : extract(@range, 2);
+	  }
+	  .init() when ( @from < @to) {
+	    @inc : 1;
+	  }
+	  .init() when ( @from > @to) {
+	    @inc : -1;
+	  }
+	  .iterate(@i){
+	    @scope();
+	    .fn(@i);
+	  }
+	  .iterate(@i) when not (@i = @to){
+	    .iterate(@i+@inc);
+	  }
+	  .prepare-args();
+	  .init();
+	  .iterate(@from);
+	}
+}

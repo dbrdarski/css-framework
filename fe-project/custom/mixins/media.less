@@ -1,0 +1,60 @@
+.media{
+	.map(min, @block, @sizes : @screenSizes){
+	  .list.first(@sizes, @block);
+	  .list.map(@sizes, {
+	    .fn(@s){
+	      @size : 'screen-@{s}-min';
+	      @media ( min-width :@@size){
+	        @block();
+	        .fn(@s);
+	      }
+	    }
+	  }, 2);
+	}
+
+	.map(max, @block, @sizes : @screenSizes){
+	  .list.map(@sizes, {
+	    .fn(@s){
+	      @size : 'screen-@{s}-max';
+	      @media ( max-width :@@size){
+	        @block();
+	        .fn(@s);
+	      }
+	    }
+	  }, 1, -1);
+	  .list.last(@sizes, @block);
+	}
+}
+
+.media(@s, @block, @screens : @screenSizes){
+	
+  @from : replace(replace(@s, "([a-z]{2})?(-)([a-z]{2})?", "$1"), extract(@screens, 1), "");
+  @to : replace(replace(@s, "([a-z]{2})?(-)([a-z]{2})?", "$3"), extract(@screens, length(@screens)), "");
+
+  .query(@block, @min, @max) when (@@min < @@max){
+    @media (min-width: @@min) and (max-width: @@max){
+      @block();
+    }    
+  }
+  .query(@block) when not (@from = ~"") and not (@to = ~""){
+    @min : "screen-@{from}-min";
+    @max : "screen-@{to}-max";
+    .query(@block, @min, @max);
+  }
+  .query(@block) when (@from = ~"") and not (@to = ~""){
+    @max : "screen-@{to}-max";
+    @media (max-width: @@max){
+      @block();
+    }
+  }
+  .query(@block) when not (@from = ~"") and (@to = ~""){
+    @min : "screen-@{from}-min";
+    @media (min-width: @@min){
+      @block();
+    }
+  }
+  .query(@block) when (@from = ~"") and (@to = ~""){
+    @block();
+  }
+  .query(@block);
+}

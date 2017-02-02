@@ -1,91 +1,96 @@
-// Framework grid generation
-//
-// Used only by Bootstrap to generate the correct number of grid classes given
-// any value of `@grid-columns`.
+@screenSizes: xs sm md lg xl;
 
-.make-grid-columns() {
-  // Common styles for all sizes of grid columns, widths 1-12
-  .col(@index) { // initial
-    @item: ~".col-xs-@{index}, .col-sm-@{index}, .col-md-@{index}, .col-lg-@{index}";
-    .col((@index + 1), @item);
-  }
-  .col(@index, @list) when (@index =< @grid-columns) { // general; "=<" isn't a typo
-    @item: ~".col-xs-@{index}, .col-sm-@{index}, .col-md-@{index}, .col-lg-@{index}";
-    .col((@index + 1), ~"@{list}, @{item}");
-  }
-  .col(@index, @list) when (@index > @grid-columns) { // terminal
-    @{list} {
-      position: relative;
-      // Prevent columns from collapsing when empty
-      min-height: 1px;
-      // Inner gutter via padding
-      padding-left:  ceil((@grid-gutter-width / 2));
-      padding-right: floor((@grid-gutter-width / 2));
+// =====================
+// Column Grid Generator
+// =====================
+
+.new-column-grid(@len : @grid-columns, @gutter : @grid-gutter-width){
+
+  .column(@screen, @i){
+    &.@{screen}-@{i}{
+      width: 100% / @len * @i;
+      padding: 0 @gutter/2;
     }
   }
-  .col(1); // kickstart it
-}
-
-.float-grid-columns(@class) {
-  .col(@index) { // initial
-    @item: ~".col-@{class}-@{index}";
-    .col((@index + 1), @item);
-  }
-  .col(@index, @list) when (@index =< @grid-columns) { // general
-    @item: ~".col-@{class}-@{index}";
-    .col((@index + 1), ~"@{list}, @{item}");
-  }
-  .col(@index, @list) when (@index > @grid-columns) { // terminal
-    @{list} {
-      float: left;
+  .pull(@screen, @i){
+    &.@{screen}-pull-@{i} {
+        right: 100% / @len * @i;
     }
   }
-  .col(1); // kickstart it
+  .push(@screen, @i){
+    &.@{screen}-pull-@{i} {
+        left: 100% / @len * @i;
+    }
+  }
+  .offset(@screen, @i){
+    &.@{screen}-offset-@{i} {
+      margin-left: 100% / @len * @i;
+    }
+  }
+
+  .columns(@screen, @len){
+    .range.map({
+      .fn(@i){
+        .column(@screen, @i);
+        .push(@screen, @i);
+        .pull(@screen, @i);
+      }
+    }, @len);
+    .range.map({
+      .fn(@i){
+        .offset(@screen, @i);
+      }
+    }, 0, @len);
+  } 
+
+  &{
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    float: left;
+  }
+
+  .media.map(min, {
+    .fn(@screen){
+      .columns(@screen, @len)
+    }
+  });
 }
 
-.calc-grid-column(@index, @class, @type) when (@type = width) and (@index > 0) {
-  .col-@{class}-@{index} {
-    width: percentage((@index / @grid-columns));
-  }
-}
-.calc-grid-column(@index, @class, @type) when (@type = push) and (@index > 0) {
-  .col-@{class}-push-@{index} {
-    left: percentage((@index / @grid-columns));
-  }
-}
-.calc-grid-column(@index, @class, @type) when (@type = push) and (@index = 0) {
-  .col-@{class}-push-0 {
-    left: auto;
-  }
-}
-.calc-grid-column(@index, @class, @type) when (@type = pull) and (@index > 0) {
-  .col-@{class}-pull-@{index} {
-    right: percentage((@index / @grid-columns));
-  }
-}
-.calc-grid-column(@index, @class, @type) when (@type = pull) and (@index = 0) {
-  .col-@{class}-pull-0 {
-    right: auto;
-  }
-}
-.calc-grid-column(@index, @class, @type) when (@type = offset) {
-  .col-@{class}-offset-@{index} {
-    margin-left: percentage((@index / @grid-columns));
-  }
-}
+// ====================
+// Block Grid Generator
+// ====================
 
-// Basic looping in LESS
-.loop-grid-columns(@index, @class, @type) when (@index >= 0) {
-  .calc-grid-column(@index, @class, @type);
-  // next iteration
-  .loop-grid-columns((@index - 1), @class, @type);
-}
+.new-block-grid(@len : @grid-columns, @gutter : @grid-gutter-width){
 
-// Create grid for specific class
-.make-grid(@class) {
-  .float-grid-columns(@class);
-  .loop-grid-columns(@grid-columns, @class, width);
-  .loop-grid-columns(@grid-columns, @class, pull);
-  .loop-grid-columns(@grid-columns, @class, push);
-  .loop-grid-columns(@grid-columns, @class, offset);
+  .column(@screen, @i, @gutter){
+    &.@{screen}-@{i}>.block{
+      width: 100% / @i;
+      &:nth-child(@{i}n+1){
+        clear: both;
+      }
+    }  
+  }
+
+  .columns(@screen, @len){
+    .range.map({
+      .fn(@i){
+        .column(@screen, @i, @gutter);
+      }
+    }, @len);
+  }
+  
+  .clearfix;
+
+  > .block{
+    float: left;
+    padding: 0 @gutter/2;
+  }
+
+  .media.map(min, {
+    .fn(@screen){
+      .columns(@screen, @len)
+    }
+  });
 }
