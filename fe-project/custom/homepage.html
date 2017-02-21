@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="nl">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" href="clientlib-framework-theme/theme.css">
+
+		<title>CSS Framework</title>
+		<meta name="description" content="Beschrijving">
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body class="homepage">
+		<header class="header" id="header">
+			<div class="wrap-inner">
+				<div class="columns-12 no-gutter">
+
+				</div>
+			</div>
+		</header>
+		<section class="top-widgets">
+			
+		</section>
+		<main class="main-area">
+		<div class="content">
+			<h1 class="title"><strong>ACL</strong> <em>LESS</em> Framework</h1>
+			<section>
+				<h2><big>Project structure</big></h2>
+				<p>The framework is organized in two folders, <code>clientlib-framework</code> and <code>clientlib-framework-theme</code>.</p>
+				<p>All project-related development should take place in the <strong>theme</strong> folder. The <strong>framework</strong> files should not be edited for any reason except when working on improvements to the framework itself, or updating to a newer version. This structure guarantees that any project related customizations won't be deleted in the process.
+				</p>
+			</section>
+			<section>
+				<h2><big>12 Column Grid <em>(based on Bootsrap)</em></big></h2>
+				<h2>Screen sizes</h2>
+				<table class="table table-bordered table-striped table-responsive">
+				  <thead>
+				    <tr>
+				      <th></th>
+				      <th>
+				        Extra small<br>
+				        <small>&lt;576px</small>
+				      </th>
+				      <th>
+				        Small<br>
+				        <small>≥576px</small>
+				      </th>
+				      <th>
+				        Medium<br>
+				        <small>≥768px</small>
+				      </th>
+				      <th>
+				        Large<br>
+				        <small>≥992px</small>
+				      </th>
+				      <th>
+				        Extra large<br>
+				        <small>≥1200px</small>
+				      </th>
+				    </tr>
+				  </thead>
+				  <tbody>
+<!-- 				    <tr>
+				      <th class="text-nowrap" scope="row">Grid behavior</th>
+				      <td>Horizontal at all times</td>
+				      <td colspan="4">Collapsed to start, horizontal above breakpoints</td>
+				    </tr>
+ -->				    <tr>
+				      <th class="text-nowrap" scope="row">Max container width</th>
+				      <td>None (auto)</td>
+				      <td>540px</td>
+				      <td>720px</td>
+				      <td>960px</td>
+				      <td>1140px</td>
+				    </tr>
+				    <tr>
+				      <th class="text-nowrap" scope="row">Class prefix</th>
+				      <td><code>.col.xs-</code></td>
+				      <td><code>.col.sm-</code></td>
+				      <td><code>.col.md-</code></td>
+				      <td><code>.col.lg-</code></td>
+				      <td><code>.col.xl-</code></td>
+				    </tr>
+				    <tr>
+				      <th class="text-nowrap" scope="row"># of columns</th>
+				      <td colspan="5">12 (default)</td>
+				    </tr>
+				    <tr>
+				      <th class="text-nowrap" scope="row">Gutter width</th>
+				      <td colspan="5">30px (15px on each side of a column)</td>
+				    </tr>
+				    <tr>
+				      <th class="text-nowrap" scope="row">Nestable</th>
+				      <td colspan="5">Yes</td>
+				    </tr>
+				    <tr>
+				      <th class="text-nowrap" scope="row">Offsets</th>
+				      <td colspan="5">Yes</td>
+				    </tr>
+				    <tr>
+				      <th class="text-nowrap" scope="row">Column ordering</th>
+				      <td colspan="5">Yes</td>
+				    </tr>
+				  </tbody>
+				</table>				
+
+			</section>
+			<section>
+				<h2>Example</h2>				
+				<div class="row">
+					<div class="col sm-6 md-4 lg-3">
+						<div class="box"></div>
+					</div>
+					<div class="col sm-6 md-4 lg-6">
+						<div class="box"></div>
+					</div>
+					<div class="col sm-6 md-4 lg-3">
+						<div class="box"></div>
+					</div>
+				</div>
+			</section>
+			<section>
+				<h2><big>Block Grid <em>(based on ZURB Foundation)</em></big></h3>
+				Block grid is an alternative grid system used when we want to display blocks of even width. Appart from not being able to have 5 identical columns with the 12 columns grid system, the block grid also adds <code>clear:both</code> to elements that start in new line. In the <a href="#grid-issue">example</a> below, the blue boxes are 1px shorter than the rest. This causes broken layout. Switch to a tablet viewport mode to view the the broken layout!
+				<div class="row">
+					<div class="block-grid xs-1 sm-2 lg-4">
+						<div class="block">
+							<div class="box"></div>
+						</div>
+						<div class="block">
+							<div class="bad box"></div>
+						</div>
+						<div class="block">
+							<div class="box"></div>
+						</div>
+						<div class="block">
+							<div class="box"></div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="grid-issue">
+				<p>Why block grid? The 12 Column Grid Problem:</p>
+				<div class="row">
+					<div class="col sm-6 lg-3">
+						<div class="box"></div>
+					</div>
+					<div class="col sm-6 lg-3">
+						<div class="bad box"></div>
+					</div>
+					<div class="col sm-6 lg-3">
+						<div class="box"></div>
+					</div>
+					<div class="col sm-6 lg-3">
+						<div class="box"></div>
+					</div>
+			</div>
+			</section>
+			<section>
+				<h2><big>Media Mixins</big></h2>
+				<p>Media mixins that allow for smart media queries that use the built-in screen breakpoints in <strong>variables.less</strong>. These values can be overriden in <strong>theme-variables.less</strong>.</p>
+				<pre>
+.screen(sm-lg, {
+   .title {
+      color: #6f5499;
+      font-weight: 900;
+   }
+});</pre>
+				<p>outputs:</p>
+				<pre>
+@media (min-width: 576px) and (max-width: 1199px) {
+   .title {
+      color: #6f5499;
+      font-weight: 900;
+   }
+}</pre>
+			</section>
+			<section>
+				<h2><big>LESS Iterators</big></h2>
+				<p>Less doesn't offer FOR loops and such, instead iteration is achived with recursive mixins. This can get confusing and complicated.</p>
+				<p>These iterators mixins provide descriptive and more unified approach for working with <strong>Ranges</strong>, <strong>Lists</strong> and <strong>Media</strong>.</p>
+				<h3>Range Iterator</h3>
+				<p><code class="code-title" class="code-title">.range.map(@block, @to)</code></p>
+				<p><pre>
+.range.map({
+   .fn(@i){
+      // @i is the iterated value;
+      ...
+   }
+}, 8);</pre></p>
+				<p><code class="code-title">.range.map(@block, @from, @to)</code></p>
+				<h3>List Iterator</h3>
+				<p><code class="code-title">.range.map(@list, @block [, @modifiers])</code></p>
+
+				<h3>Media Iterator</h3>
+				<p><code class="code-title">.range.map(min/max, @block)</code></p>
+
+			</section>
+		</div>
+		</main>
+<!-- 		<section class="bottom-widgets">
+		</section>
+ -->		<footer class="footer" id="footer">
+			<div class="footer-top"></div>
+			<section id="footer-bottom" class="footer-bottom text-center">CSS Framework</section>
+		</footer>
+		<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+		<script src="js/main.js"></script>	
+	</body>
+</html>

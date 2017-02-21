@@ -5,16 +5,52 @@
  */
 
 //
-// Load core variables and mixins
-// --------------------------------------------------
 
-@import "defaults/variables.less";
-@import "mixins/mixins.less";
+@import "../clientlib-framework/framework"; // Load core variables and mixins
+@import "../clientlib-framework/normalize"; // CSS reset
 
+.utility-classes();
+
+// generate 12-column grid
+// by calling mixin .new-column-grid(n)
+// n -> number of columns (default: 12)
+// use .col as base prefix. Ex: <div class="col sm-6 lg-3">...</div>
+
+.col{
+  .new-column-grid();
+}
+
+// generate block grid
+// by calling mixin .new-column-grid(n)
+// n -> number of columns (default: 12)
+// use .col as base prefix. Ex: <div class="col sm-6 lg-3">...</div>
+
+.block-grid{
+  .new-block-grid(8);
+}
+
+p{
+  line-height: 1.4;
+}
+
+p, h1, h2, h3, h4, h5, h6,
+.title, .text, .button{
+  margin: 30px 0;
+  &:first-child{
+    margin-top: 0;
+  }
+  &:last-child{
+    margin-bottom: 0;
+  }
+}
 
 //
 // Buttons
 // --------------------------------------------------
+
+img{
+  max-width: 100%;
+}
 
 // Common styles
 .btn-default,
@@ -150,3 +186,20 @@
 // .alert-info       { .alert-styles(@alert-info-bg); }
 // .alert-warning    { .alert-styles(@alert-warning-bg); }
 // .alert-danger     { .alert-styles(@alert-danger-bg); }
+
+//.cq-placeholder{
+//  position: absolute !important;
+//}
+//
+//.cq-Overlay--placeholder.cq-draggable{
+//  &:before{
+//    background: yellow;
+//    color: red !important;
+//  }
+//  &:hover:before{
+//    opacity: 1 !important;
+//  }
+//  &:before, &:hover + &:before{
+//    opacity: 0 !important;;
+//  }
+//}

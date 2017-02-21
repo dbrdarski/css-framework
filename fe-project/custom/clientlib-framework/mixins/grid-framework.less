@@ -1,4 +1,3 @@
-@screenSizes: xs sm md lg xl;
 
 // =====================
 // Column Grid Generator
@@ -29,18 +28,18 @@
   }
 
   .columns(@screen, @len){
-    .range.map({
+    .range.map(@len,{
       .fn(@i){
         .column(@screen, @i);
         .push(@screen, @i);
         .pull(@screen, @i);
       }
-    }, @len);
-    .range.map({
+    });
+    .range.map(0 @len, {
       .fn(@i){
         .offset(@screen, @i);
       }
-    }, 0, @len);
+    });
   } 
 
   &{
@@ -49,6 +48,7 @@
     padding-left: 15px;
     padding-right: 15px;
     float: left;
+    width: 100%;
   }
 
   .media.map(min, {
@@ -57,6 +57,7 @@
     }
   });
 }
+
 
 // ====================
 // Block Grid Generator
@@ -67,6 +68,9 @@
   .column(@screen, @i, @gutter){
     &.@{screen}-@{i}>.block{
       width: 100% / @i;
+      &:nth-child(n){
+        clear: none;
+      }
       &:nth-child(@{i}n+1){
         clear: both;
       }
@@ -74,11 +78,11 @@
   }
 
   .columns(@screen, @len){
-    .range.map({
+    .range.map(@len, {
       .fn(@i){
         .column(@screen, @i, @gutter);
       }
-    }, @len);
+    });
   }
   
   .clearfix;

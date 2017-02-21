@@ -1,0 +1,60 @@
+.utility-classes(@gutter : @grid-gutter-width){
+  .clearfix{
+    .clearfix;
+  }
+
+  .make-container() {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left:  floor((@gutter / 2));
+    padding-right: ceil((@gutter / 2));
+    &:extend(.clearfix all);
+  }
+
+  // Creates a wrapper for a series of columns
+  .make-row() {
+    margin-left:  ceil((@gutter / -2));
+    margin-right: floor((@gutter / -2));
+    &:extend(.clearfix all);
+  }
+
+
+  .container, .container-fluid {
+    .make-container();
+  }
+
+  .container-wide{
+    width: 100% !important;
+    max-width: @container-wide + @gutter;
+    &:extend(.container);
+  }
+
+  .row{
+    .make-row();
+  }
+
+  .media(md-, {
+    .container {
+      width: @container-md;
+    }
+  });
+
+  .media(lg-, {
+    .container {
+      width: @container-lg;
+    }
+  });
+
+  .media(xl-, {
+    .container {
+      width: @container-xl;
+    }
+  });
+
+  .row {
+    &:extend(.clearfix);
+    margin-left: (@gutter / -2);
+    margin-right: (@gutter / -2);
+  }
+}
+
