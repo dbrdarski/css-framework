@@ -58,7 +58,7 @@ text-white #fff;
 full-white #fff,
 cloud-white #ecf0f1,
 silver-gray #bdc3c7,
-asphalt-blue #ecf0f1,
+asphalt-blue #34495e,
 midnight-blue #2c3e50,
 concrete-gray #95a5a6,
 asbestos-gray #7f8c8d,
@@ -140,6 +140,10 @@ input, textarea{
 	padding: floor(@padding-base * .875) floor(@padding-base * 1.25);
 }
 
+.control-colors(@color){
+
+}
+
 @control-sizes:  xs 12px, sm 14px, md 16px, lg 20px, xl 24px;
 
 .ctrl-template(@ctrl-weight){
@@ -157,18 +161,105 @@ input, textarea{
 	.map.each(@control-sizes, @btn);
 	background: @brand-primary;
 	color: white;
+	border: 1px solid; 
 }
 
 .control{
 	.map.each(@control-sizes, @control);
 }
+
 .text-control{
 	background: #ddd;
 	color: #333;
 }
-textarea, input[type="text"]{
+
+textarea, input[type="text"], input[type="email"], input[type="tel"], input[type="password"], input[type="number"]{
 	&:extend(.text-control);
 }
+
 .text-control, .btn.compact{
 	&:extend(.control all);
+}
+
+@btn-colors:
+primary @brand-primary,
+secondary #34495e,
+success #449d44,
+info #5bc0de,
+warning #f0ad4e,
+danger #c9302c;
+
+@fn : {.fn(){}};
+@null : ~"";
+
+.btn-colors(@color; @template : @fn; @default: @btn-default){
+	.border(@modifier: #000; @border-color: @color){
+		@border-modifier: @modifier;
+		@border-color-computed: @border-color;
+	}
+	.hover(@ratio : 12; @modifier: #000){
+		@hover-ratio: @ratio;
+		@hover-modifier: @modifier;
+	}
+	.focus(@ratio : 14; @modifier: #080808){
+		@focus-ratio: @ratio;		
+		@focus-modifier: @modifier;
+	}
+	.active(@ratio : 16; @modifier: #060606){
+		@active-ratio: @ratio;		
+		@active-modifier: @modifier;
+	}
+	.gen(){
+		background: @color;
+		border-color: @border-color-computed - @border-modifier;		
+		&:hover{
+			background: @color / (1 + @hover-ratio / 100) - @hover-modifier;
+			border-color: @border-color-computed / (1 + @hover-ratio / 100) - @hover-modifier - @border-modifier;			
+		}
+		&:focus{
+			background: @color / (1 + @focus-ratio / 100) - @focus-modifier;
+			border-color: @border-color-computed / (1 + @focus-ratio / 100) - @focus-modifier - @border-modifier;			
+		}
+		&:active{
+			background: saturate(@color / ( 1 + @active-ratio / 100) / 1.10, @active-ratio / 1.25) - @active-modifier;
+			border-color: saturate(@border-color-computed / (1 + @active-ratio / 100) / 1.10, @active-ratio / 1.10) - @active-modifier - @border-modifier;
+		}
+	}
+	@template();
+	.fn();
+	@default();
+	.fn();
+	.gen();
+}
+
+@btn-default: {
+	.fn(){
+		.border();
+		.hover();
+		.focus();
+		.active();
+	}
+};
+
+@btn-alt: {
+	.fn(){
+		.border(#222);
+	}
+};
+
+@btn-all: {
+	.fn(@k, @v){
+		&.btn-@{k}{			
+			.btn-colors(@v, @btn-alt);
+			// @{k}: @v;
+		}
+	}
+};
+
+.btn{
+	outline: 0 none;
+	.btn-colors(@brand-primary, @btn-default);	
+}
+.btn{
+	.map.each(@btn-colors, @btn-all);
 }
