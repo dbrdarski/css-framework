@@ -1,7 +1,5 @@
 /*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2016 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ACL Framework 0.1
  */
 
 //
@@ -44,162 +42,130 @@ p, h1, h2, h3, h4, h5, h6,
   }
 }
 
-//
-// Buttons
-// --------------------------------------------------
 
 img{
   max-width: 100%;
 }
 
-// // Common styles
-// .btn-default,
-// .btn-primary,
-// .btn-success,
-// .btn-info,
-// .btn-warning,
-// .btn-danger {
-//   text-shadow: 0 -1px 0 rgba(0,0,0,.2);
-//   @shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 1px 1px rgba(0,0,0,.075);
-//   .box-shadow(@shadow);
 
-//   // Reset the shadow
-//   &:active,
-//   &.active {
-//     .box-shadow(inset 0 3px 5px rgba(0,0,0,.125));
-//   }
-
-//   &.disabled,
-//   &[disabled],
-//   fieldset[disabled] & {
-//     .box-shadow(none);
-//   }
-
-//   .badge {
-//     text-shadow: none;
-//   }
-// }
-
-// // Mixin for generating new styles
-// .btn-styles(@btn-color: #555) {
-//   #gradient > .vertical(@start-color: @btn-color; @end-color: darken(@btn-color, 12%));
-//   .reset-filter(); // Disable gradients for IE9 because filter bleeds through rounded corners; see https://github.com/twbs/bootstrap/issues/10620
-//   background-repeat: repeat-x;
-//   border-color: darken(@btn-color, 14%);
-
-//   &:hover,
-//   &:focus  {
-//     background-color: darken(@btn-color, 12%);
-//     background-position: 0 -15px;
-//   }
-
-//   &:active,
-//   &.active {
-//     background-color: darken(@btn-color, 12%);
-//     border-color: darken(@btn-color, 14%);
-//   }
-
-//   &.disabled,
-//   &[disabled],
-//   fieldset[disabled] & {
-//     &,
-//     &:hover,
-//     &:focus,
-//     &.focus,
-//     &:active,
-//     &.active {
-//       background-color: darken(@btn-color, 12%);
-//       background-image: none;
-//     }
-//   }
-// }
-
-// // Common styles
-// .btn {
-//   // Remove the gradient for the pressed/active state
-//   &:active,
-//   &.active {
-//     background-image: none;
-//   }
-// }
-
-// // Apply the mixin to the buttons
-// .btn-default { .btn-styles(@btn-default-bg); text-shadow: 0 1px 0 #fff; border-color: #ccc; }
-// .btn-primary { .btn-styles(@btn-primary-bg); }
-// .btn-success { .btn-styles(@btn-success-bg); }
-// .btn-info    { .btn-styles(@btn-info-bg); }
-// .btn-warning { .btn-styles(@btn-warning-bg); }
-// .btn-danger  { .btn-styles(@btn-danger-bg); }
-
-//
-// Images
-// --------------------------------------------------
-
-// //
-// // Dropdowns
-// // --------------------------------------------------
-
-// .dropdown-menu > li > a:hover,
-// .dropdown-menu > li > a:focus {
-//   #gradient > .vertical(@start-color: @dropdown-link-hover-bg; @end-color: darken(@dropdown-link-hover-bg, 5%));
-//   background-color: darken(@dropdown-link-hover-bg, 5%);
-// }
-// .dropdown-menu > .active > a,
-// .dropdown-menu > .active > a:hover,
-// .dropdown-menu > .active > a:focus {
-//   #gradient > .vertical(@start-color: @dropdown-link-active-bg; @end-color: darken(@dropdown-link-active-bg, 5%));
-//   background-color: darken(@dropdown-link-active-bg, 5%);
-// }
-
-// // Fix active state of dropdown items in collapsed mode
-// @media (max-width: @grid-float-breakpoint-max) {
-//   .navbar .navbar-nav .open .dropdown-menu > .active > a {
-//     &,
-//     &:hover,
-//     &:focus {
-//       color: #fff;
-//       #gradient > .vertical(@start-color: @dropdown-link-active-bg; @end-color: darken(@dropdown-link-active-bg, 5%));
-//     }
-//   }
-// }
+//////////////////////////////
+//  Forms, inputs, buttons  //
+//////////////////////////////
 
 
-// //
-// // Alerts
-// // --------------------------------------------------
+.form-controls();
 
-// // Common styles
-// .alert {
-//   text-shadow: 0 1px 0 rgba(255,255,255,.2);
-//   @shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 1px 2px rgba(0,0,0,.05);
-//   .box-shadow(@shadow);
-// }
+.gui{
+  .ctrl-size.each(@gui-sizes, @control-size-template);
+  .ctrl-size(16px, @control-size-template);  // default value 16px
+}
 
-// // Mixin for generating new styles
-// .alert-styles(@color) {
-//   #gradient > .vertical(@start-color: @color; @end-color: darken(@color, 7.5%));
-//   border-color: darken(@color, 15%);
-// }
+.text-control, .btn.compact{
+  &:extend(.gui all);
+}
 
-// // Apply the mixin to the alerts
-// .alert-success    { .alert-styles(@alert-success-bg); }
-// .alert-info       { .alert-styles(@alert-info-bg); }
-// .alert-warning    { .alert-styles(@alert-warning-bg); }
-// .alert-danger     { .alert-styles(@alert-danger-bg); }
+textarea,
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="number"],
+input[type="url"],
+input[type="search"],
+input[type="date"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="datetime"],
+input[type="datetime-local"]{
+  &:extend(.text-control all);
+}
 
-//.cq-placeholder{
-//  position: absolute !important;
-//}
-//
-//.cq-Overlay--placeholder.cq-draggable{
-//  &:before{
-//    background: yellow;
-//    color: red !important;
-//  }
-//  &:hover:before{
-//    opacity: 1 !important;
-//  }
-//  &:before, &:hover + &:before{
-//    opacity: 0 !important;;
-//  }
-//}
+.text-control{
+  .ctrl-colors(#ddd,  @text-inputs-style);
+}
+
+.button-group{
+  // styles for 
+}
+
+.btn{
+  &:extend(.gui);
+  // Generate button sizes
+  .ctrl-size.each(@gui-sizes, @btn-size-template);
+  .ctrl-size(16px, @btn-size-template); // default value 16px
+  // Generate button color styles
+  .ctrl-colors.each(@btn-colors, @btn-style-bordered);
+  // Generate default button style
+  .ctrl-colors(@brand-primary, @btn-style-default);
+}
+
+//////////////////////////
+//  Custom form styles  //
+//////////////////////////
+
+.gui{
+  border-width: 1px;
+  border-style: solid;
+  outline: 0 none !important;
+  resize: vertical;
+}
+
+.checkbox{
+  input[type="checkbox"]{
+    // display: none;
+    // & + .checkbox-label:before{
+    //     content: "";
+    //     display: inline-block;
+    //     height: .75em;
+    //     width: .75em;
+    //     background: red;
+    //     margin-right: .2em;
+    // }
+    // &:checked + .checkbox-label:before{
+    //  background: blue;
+    // }
+  }
+}
+
+.radiobutton{ 
+  input[type="radio"]{
+    // display: none;
+    // & + .radio-label:before{
+    //     content: "";
+    //     display: inline-block;
+    //     height: .75em;
+    //     width: .75em;
+    //     background: fade(#333, 40);
+    //     margin-right: .2em;
+    //     border: 2px solid fade(#333, 40);
+    //     border-radius: 100px;
+    // }
+    // &:checked + .radio-label:before{
+    //  background: #333;
+    // }
+  }
+}
+
+.btn{
+  // default style
+  display: inline-block;
+  text-decoration: none;
+  border-radius: 3px;
+  background: @brand-primary;
+  color: white;
+
+  // few custom styles classes
+  &.opaque{
+    .ctrl-colors.each(@btn-colors, @btn-style-opaque);    
+  }
+
+  &.btn-reverse{
+    .ctrl-colors(#fff, {
+      color: #444;
+      .fn(){
+        .style(@border-color:#444);
+      }
+    });
+  }
+}
