@@ -45,8 +45,8 @@
   }
 }
 
-.map{
-  .each(@map, @scope) when (length(@map) > 1) and (length(extract(@map, 1)) > 1){
+.hash{
+  .map(@map, @scope) when (length(@map) > 1) and (length(extract(@map, 1)) > 1){
     .list.map(@map, {
       .fn(@i) when (length(@i) > 1){
         @scope();
@@ -54,7 +54,7 @@
       }
     });
   }
-  .each(@map, @scope) when not (length(@map) > 1) and not (length(extract(@map, 1)) > 1){    
+  .map(@map, @scope) when not (length(@map) > 1) and not (length(extract(@map, 1)) > 1){
     @scope();
     .fn(extract(@map,1), extract(@map,2));
   }

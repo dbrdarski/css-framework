@@ -1,6 +1,6 @@
 .ctrl-size{
   .each(@sizes, @template){
-    .map.each(@sizes, {
+    .hash.map(@sizes, {
       .fn(@key, @val){
         &.size-@{key}{
           .ctrl-size(@val, @template);
@@ -37,10 +37,25 @@
     @padding-computed : floor(@padding-base * @padding-top) floor(@padding-base * @padding-right) floor(@padding-base * @padding-bottom) floor(@padding-base * @padding-left);
   }
   .render(){
-    font-size: @font-base;
-    line-height: ceil(@font-base * @line-height-computed);
-    min-height: ceil(@font-base * @line-height-computed) + floor(@padding-base * @padding-top) + floor(@padding-base * @padding-bottom) + 2;
-    padding: @padding-computed;
+    &, .input-nested {
+      font-size: @font-base;
+      line-height: ceil(@font-base * @line-height-computed);
+      @size: ceil(@font-base * @line-height-computed) + floor(@padding-base * @padding-top) + floor(@padding-base * @padding-bottom) + 2;
+      min-height: @size;
+      min-width: @size;
+      padding: @padding-computed;
+    }
+    .input-nested{
+      margin-left: floor(@padding-base*@padding-left*(-1));
+      margin-right: floor(@padding-base*@padding-right*(-1));
+      width: auto !important;
+      &:first-child{
+        margin-top: floor(@padding-base*@padding-top*(-1));
+      }
+      &:last-child{
+        margin-bottom: floor(@padding-base*@padding-bottom*(-1));
+      }
+    }
   }
   @template();
   .fn();
@@ -49,111 +64,18 @@
 
 .ctrl-colors{
   .each(@colors, @template){
-    .map.each(@colors, {
+    .hash.map(@colors, {
       .fn(@key, @val){
-        &.btn-@{key}{     
+        &.btn-@{key}{
           .ctrl-colors(@val, @template);
         }
       }
     });
   }
 }
-.ctrl-colors(@color; @template: @fn; @default: @btn-style-default){
-  .style(@bg-modifier: 0; @bg-color: @color; @border-modifier: 0; @border-color: @color; @opacity : 100; @bg-opacity: 100; @border-opacity: 100;){
-    @bg-add: max(0, @bg-modifier/100) * #fff;
-    @bg-substract: max(0, @bg-modifier/(-100)) * #fff;
-    @bg-color-computed: @bg-color;
-    @border-add: max(0, @border-modifier/100) * #fff;
-    @border-substract: max(0, @border-modifier/(-100)) * #fff;
-    @border-color-computed: @border-color;
-    @opacity-computed: @opacity / 100;
-    @bg-opacity-computed: @bg-opacity / 100;
-    @border-opacity-computed: @border-opacity / 100;
-  }
-  .normal(@ratio : 0; @modifier: 0; @opacity : 100; @bg-opacity: 100; @border-opacity: 100; @saturate: 0; @bg-color: @null; @border-color: @null){
-    @normal-ratio: (100 + @ratio) / 100;
-    @normal-saturation: @saturate;
-    @normal-add: max(0, @modifier/100) * #fff;
-    @normal-substract: max(0, @modifier/(-100)) * #fff;   
-    @normal-opacity: @opacity / 100;
-    @bg-normal-opacity: @bg-opacity / 100;
-    @border-normal-opacity: @border-opacity / 100;
-    @bg-color-normal: @bg-color;
-    @border-color-normal: @border-color;
-  }
-  .hover(@ratio : 0; @modifier: 0; @opacity : 100; @bg-opacity: 100; @border-opacity: 100; @saturate: 0; @bg-color: @null; @border-color: @null){
-    @hover-ratio: (100 + @ratio) / 100;
-    @hover-saturation: @saturate;
-    @hover-add: max(0, @modifier/100) * #fff;
-    @hover-substract: max(0, @modifier/(-100)) * #fff;    
-    @hover-opacity: @opacity / 100;
-    @bg-hover-opacity: @bg-opacity / 100;
-    @border-hover-opacity: @border-opacity / 100;
-    @bg-color-hover: @bg-color;
-    @border-color-hover: @border-color;
-  }
-  .focus(@ratio : 0; @modifier: 0; @opacity : 100; @bg-opacity: 100; @border-opacity: 100; @saturate: 0; @bg-color: @null; @border-color: @null){
-    @focus-ratio: (100 + @ratio) / 100;   
-    @focus-saturation: @saturate;
-    @focus-add: max(0, @modifier/100) * #fff;
-    @focus-substract: max(0, @modifier/(-100)) * #fff;    
-    @focus-opacity: @opacity / 100;
-    @bg-focus-opacity: @bg-opacity / 100;
-    @border-focus-opacity: @border-opacity / 100;
-    @bg-color-focus: @bg-color;
-    @border-color-focus: @border-color;
-  }
-  .active(@ratio : 0; @modifier: 0; @opacity : 100; @bg-opacity: 100; @border-opacity: 100; @saturate: 0; @bg-color: @null; @border-color: @null){
-    @active-ratio: (100 + @ratio) / 100;    
-    @active-saturation: @saturate;
-    @active-add: max(0, @modifier/100) * #fff;
-    @active-substract: max(0, @modifier/(-100)) * #fff;   
-    @active-opacity: @opacity / 100;
-    @bg-active-opacity: @bg-opacity / 100;
-    @border-active-opacity: @border-opacity / 100;
-    @bg-color-active: @bg-color;
-    @border-color-active: @border-color;
-  }
-  .compute() when (@bg-color-normal = @null) { @bg-color-normal-computed : @bg-color-computed; }
-  .compute() when (@bg-color-hover = @null) { @bg-color-hover-computed : @bg-color-computed; }
-  .compute() when (@bg-color-focus = @null) { @bg-color-focus-computed : @bg-color-computed; }
-  .compute() when (@bg-color-active = @null) { @bg-color-active-computed : @bg-color-computed; }
-  .compute() when not (@bg-color-normal = @null) { @bg-color-normal-computed : @bg-color-normal; }
-  .compute() when not (@bg-color-hover = @null) { @bg-color-hover-computed : @bg-color-hover; }
-  .compute() when not (@bg-color-focus = @null) { @bg-color-focus-computed : @bg-color-focus; }
-  .compute() when not (@bg-color-active = @null) { @bg-color-active-computed : @bg-color-active; }
-
-  .compute() when (@border-color-normal = @null) { @border-color-normal-computed : @border-color-computed; }
-  .compute() when (@border-color-hover = @null) { @border-color-hover-computed : @border-color-computed; }
-  .compute() when (@border-color-focus = @null) { @border-color-focus-computed : @border-color-computed; }
-  .compute() when (@border-color-active = @null) { @border-color-active-computed : @border-color-computed; }
-  .compute() when not (@border-color-normal = @null) { @border-color-normal-computed : @border-color-normal; }
-  .compute() when not (@border-color-hover = @null) { @border-color-hover-computed : @border-color-hover; }
-  .compute() when not (@border-color-focus = @null) { @border-color-focus-computed : @border-color-focus; }
-  .compute() when not (@border-color-active = @null) { @border-color-active-computed : @border-color-active; }
-  
-  .render(){
-    background: fade(@bg-color-normal-computed, @opacity-computed * @bg-opacity-computed * 100);
-    border-color: fade(@border-color-normal-computed + @border-add - @border-substract, @opacity-computed * @border-opacity-computed * 100);
-    &:hover{
-      background: fade(saturate(@bg-color-hover-computed * @hover-ratio, @hover-saturation) + @hover-add - @hover-substract, @hover-opacity * @bg-hover-opacity * 100);
-      border-color: fade(saturate(@border-color-hover-computed * @hover-ratio, @hover-saturation) + @hover-add - @hover-substract + @border-add - @border-substract, @hover-opacity * @border-hover-opacity * 100);
-    }
-    &:focus{
-      background: fade(saturate(@bg-color-focus-computed * @focus-ratio, @focus-saturation)  + @focus-add - @focus-substract, @focus-opacity * @bg-focus-opacity * 100);
-      border-color: fade(saturate(@border-color-focus-computed * @focus-ratio, @focus-saturation) + @focus-add - @focus-substract + @border-add - @border-substract, @focus-opacity * @border-focus-opacity * 100);
-    }
-    &:active{
-      background: fade(saturate(@bg-color-active-computed * @active-ratio, @active-saturation) + @active-add - @active-substract, @active-opacity * @bg-active-opacity * 100);
-      border-color: fade(saturate(@border-color-active-computed * @active-ratio, @active-saturation) + @active-add - @active-substract + @border-add - @border-substract, @active-opacity * @border-active-opacity * 100);
-    }
-  }
-  @template();
-  .fn();
-  @default();
-  .fn();
-  .compute();
-  .render();
+.ctrl-colors(@color; @template: @fn){
+    @template();
+  .fn(@color);
 }
 
 
@@ -253,6 +175,10 @@
       .border-left-radius(0);
     }
   }
+  .required-info{
+    font-size: small;
+    padding: 10px;
+  }
 }
 
 .error-msg{
@@ -263,6 +189,12 @@
 
 .text-control.error{
   color: @brand-danger;
+}
+
+.select-container, .select-container .options-container{
+  &:extend(.text-control all);
+  height: 0;
+  border-width: 0;
 }
 
 .cgroup .c-item > input:focus{

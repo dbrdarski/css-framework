@@ -8,6 +8,8 @@
   padding-top: 10px;
 }
 .text-control.error,
+.select-container.error,
+.select-container .options-container.error,
 textarea.error,
 input[type="text"].error,
 input[type="email"].error,
@@ -23,6 +25,11 @@ input[type="time"].error,
 input[type="datetime"].error,
 input[type="datetime-local"].error {
   color: #d9534f;
+}
+.select-container,
+.select-container .options-container {
+  height: 0;
+  border-width: 0;
 }
 .cgroup .c-item > input:focus {
   outline: 0 none;
@@ -447,9 +454,6 @@ template {
  */
 [hidden] {
   display: none;
-}
-*:focus {
-  outline: 0 none !important;
 }
 .clearfix:before,
 .clearfix:after,
@@ -1767,6 +1771,8 @@ img {
 }
 .form-group .text-control,
 .form-group .input-group,
+.form-group .select-container,
+.form-group .select-container .options-container,
 .form-group textarea,
 .form-group input[type="text"],
 .form-group input[type="email"],
@@ -1788,6 +1794,8 @@ form.horizontal-xs .form-group .input-label {
 }
 form.horizontal-xs .form-group .input-label + .text-control,
 form.horizontal-xs .form-group .input-label + .input-group,
+form.horizontal-xs .form-group .input-label + .select-container,
+form.horizontal-xs .form-group .input-label + .select-container .options-container,
 form.horizontal-xs .form-group .input-label + textarea,
 form.horizontal-xs .form-group .input-label + input[type="text"],
 form.horizontal-xs .form-group .input-label + input[type="email"],
@@ -1806,6 +1814,8 @@ form.horizontal-xs .form-group .input-label + input[type="datetime-local"] {
 }
 form.horizontal-xs .form-group .input-label + .text-control + .error-msg,
 form.horizontal-xs .form-group .input-label + .input-group + .error-msg,
+form.horizontal-xs .form-group .input-label + .select-container + .error-msg,
+form.horizontal-xs .form-group .input-label + .select-container .options-container + .error-msg,
 form.horizontal-xs .form-group .input-label + textarea + .error-msg,
 form.horizontal-xs .form-group .input-label + input[type="text"] + .error-msg,
 form.horizontal-xs .form-group .input-label + input[type="email"] + .error-msg,
@@ -1831,6 +1841,8 @@ form.horizontal-xs .form-group .input-label + .cgroup {
   }
   form.horizontal-sm .form-group .input-label + .text-control,
   form.horizontal-sm .form-group .input-label + .input-group,
+  form.horizontal-sm .form-group .input-label + .select-container,
+  form.horizontal-sm .form-group .input-label + .select-container .options-container,
   form.horizontal-sm .form-group .input-label + textarea,
   form.horizontal-sm .form-group .input-label + input[type="text"],
   form.horizontal-sm .form-group .input-label + input[type="email"],
@@ -1849,6 +1861,8 @@ form.horizontal-xs .form-group .input-label + .cgroup {
   }
   form.horizontal-sm .form-group .input-label + .text-control + .error-msg,
   form.horizontal-sm .form-group .input-label + .input-group + .error-msg,
+  form.horizontal-sm .form-group .input-label + .select-container + .error-msg,
+  form.horizontal-sm .form-group .input-label + .select-container .options-container + .error-msg,
   form.horizontal-sm .form-group .input-label + textarea + .error-msg,
   form.horizontal-sm .form-group .input-label + input[type="text"] + .error-msg,
   form.horizontal-sm .form-group .input-label + input[type="email"] + .error-msg,
@@ -1875,6 +1889,8 @@ form.horizontal-xs .form-group .input-label + .cgroup {
   }
   form.horizontal-md .form-group .input-label + .text-control,
   form.horizontal-md .form-group .input-label + .input-group,
+  form.horizontal-md .form-group .input-label + .select-container,
+  form.horizontal-md .form-group .input-label + .select-container .options-container,
   form.horizontal-md .form-group .input-label + textarea,
   form.horizontal-md .form-group .input-label + input[type="text"],
   form.horizontal-md .form-group .input-label + input[type="email"],
@@ -1893,6 +1909,8 @@ form.horizontal-xs .form-group .input-label + .cgroup {
   }
   form.horizontal-md .form-group .input-label + .text-control + .error-msg,
   form.horizontal-md .form-group .input-label + .input-group + .error-msg,
+  form.horizontal-md .form-group .input-label + .select-container + .error-msg,
+  form.horizontal-md .form-group .input-label + .select-container .options-container + .error-msg,
   form.horizontal-md .form-group .input-label + textarea + .error-msg,
   form.horizontal-md .form-group .input-label + input[type="text"] + .error-msg,
   form.horizontal-md .form-group .input-label + input[type="email"] + .error-msg,
@@ -1919,6 +1937,8 @@ form.horizontal-xs .form-group .input-label + .cgroup {
   }
   form.horizontal-lg .form-group .input-label + .text-control,
   form.horizontal-lg .form-group .input-label + .input-group,
+  form.horizontal-lg .form-group .input-label + .select-container,
+  form.horizontal-lg .form-group .input-label + .select-container .options-container,
   form.horizontal-lg .form-group .input-label + textarea,
   form.horizontal-lg .form-group .input-label + input[type="text"],
   form.horizontal-lg .form-group .input-label + input[type="email"],
@@ -1937,6 +1957,8 @@ form.horizontal-xs .form-group .input-label + .cgroup {
   }
   form.horizontal-lg .form-group .input-label + .text-control + .error-msg,
   form.horizontal-lg .form-group .input-label + .input-group + .error-msg,
+  form.horizontal-lg .form-group .input-label + .select-container + .error-msg,
+  form.horizontal-lg .form-group .input-label + .select-container .options-container + .error-msg,
   form.horizontal-lg .form-group .input-label + textarea + .error-msg,
   form.horizontal-lg .form-group .input-label + input[type="text"] + .error-msg,
   form.horizontal-lg .form-group .input-label + input[type="email"] + .error-msg,
@@ -1963,6 +1985,8 @@ form.horizontal-xs .form-group .input-label + .cgroup {
   }
   form.horizontal-xl .form-group .input-label + .text-control,
   form.horizontal-xl .form-group .input-label + .input-group,
+  form.horizontal-xl .form-group .input-label + .select-container,
+  form.horizontal-xl .form-group .input-label + .select-container .options-container,
   form.horizontal-xl .form-group .input-label + textarea,
   form.horizontal-xl .form-group .input-label + input[type="text"],
   form.horizontal-xl .form-group .input-label + input[type="email"],
@@ -1981,6 +2005,8 @@ form.horizontal-xs .form-group .input-label + .cgroup {
   }
   form.horizontal-xl .form-group .input-label + .text-control + .error-msg,
   form.horizontal-xl .form-group .input-label + .input-group + .error-msg,
+  form.horizontal-xl .form-group .input-label + .select-container + .error-msg,
+  form.horizontal-xl .form-group .input-label + .select-container .options-container + .error-msg,
   form.horizontal-xl .form-group .input-label + textarea + .error-msg,
   form.horizontal-xl .form-group .input-label + input[type="text"] + .error-msg,
   form.horizontal-xl .form-group .input-label + input[type="email"] + .error-msg,
@@ -2003,6 +2029,8 @@ form.horizontal-xs .form-group .input-label + .cgroup {
 }
 form .form-group .input-label + .text-control,
 form .form-group .input-label + .input-group,
+form .form-group .input-label + .select-container,
+form .form-group .input-label + .select-container .options-container,
 form .form-group .input-label + textarea,
 form .form-group .input-label + input[type="text"],
 form .form-group .input-label + input[type="email"],
@@ -2050,6 +2078,8 @@ form .form-group .input-label + input[type="datetime-local"] {
   float: left;
 }
 .input-group .text-control,
+.input-group .select-container,
+.input-group .select-container .options-container,
 .input-group textarea,
 .input-group input[type="text"],
 .input-group input[type="email"],
@@ -2076,6 +2106,8 @@ form .form-group .input-label + input[type="datetime-local"] {
   color: #555;
 }
 .input-group-addon .text-control:not(:first-child),
+.input-group-addon .select-container:not(:first-child),
+.input-group-addon .select-container .options-container:not(:first-child),
 .input-group-addon textarea:not(:first-child),
 .input-group-addon input[type="text"]:not(:first-child),
 .input-group-addon input[type="email"]:not(:first-child),
@@ -2094,6 +2126,8 @@ form .form-group .input-label + input[type="datetime-local"] {
   border-top-left-radius: 0;
 }
 .input-group-addon .text-control:not(:last-child),
+.input-group-addon .select-container:not(:last-child),
+.input-group-addon .select-container .options-container:not(:last-child),
 .input-group-addon textarea:not(:last-child),
 .input-group-addon input[type="text"]:not(:last-child),
 .input-group-addon input[type="email"]:not(:last-child),
@@ -2119,146 +2153,698 @@ form .form-group .input-label + input[type="datetime-local"] {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
-.gui,
-.input-group-addon,
-.text-control,
-.btn.compact,
-.btn,
-textarea,
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="password"],
-input[type="number"],
-input[type="url"],
-input[type="search"],
-input[type="date"],
-input[type="month"],
-input[type="week"],
-input[type="time"],
-input[type="datetime"],
-input[type="datetime-local"] {
-  font-size: 16px;
-  line-height: 20px;
-  min-height: 36px;
-  padding: 7px 10px 7px 10px;
+.required-info {
+  font-size: small;
+  padding: 10px;
 }
 .gui.size-xs,
+.gui.size-xs .input-nested,
 .input-group-addon.size-xs,
+.input-group-addon.size-xs .input-nested,
 .text-control.size-xs,
+.text-control.size-xs .input-nested,
 .btn.compact.size-xs,
+.btn.compact.size-xs .input-nested,
+.select-container.size-xs,
+.select-container.size-xs .input-nested,
+.select-container .options-container.size-xs,
+.select-container .options-container.size-xs .input-nested,
 textarea.size-xs,
+textarea.size-xs .input-nested,
 input[type="text"].size-xs,
+input[type="text"].size-xs .input-nested,
 input[type="email"].size-xs,
+input[type="email"].size-xs .input-nested,
 input[type="tel"].size-xs,
+input[type="tel"].size-xs .input-nested,
 input[type="password"].size-xs,
+input[type="password"].size-xs .input-nested,
 input[type="number"].size-xs,
+input[type="number"].size-xs .input-nested,
 input[type="url"].size-xs,
+input[type="url"].size-xs .input-nested,
 input[type="search"].size-xs,
+input[type="search"].size-xs .input-nested,
 input[type="date"].size-xs,
+input[type="date"].size-xs .input-nested,
 input[type="month"].size-xs,
+input[type="month"].size-xs .input-nested,
 input[type="week"].size-xs,
+input[type="week"].size-xs .input-nested,
 input[type="time"].size-xs,
+input[type="time"].size-xs .input-nested,
 input[type="datetime"].size-xs,
-input[type="datetime-local"].size-xs {
+input[type="datetime"].size-xs .input-nested,
+input[type="datetime-local"].size-xs,
+input[type="datetime-local"].size-xs .input-nested {
   font-size: 12px;
   line-height: 15px;
   min-height: 27px;
+  min-width: 27px;
   padding: 5px 7px 5px 7px;
 }
+.gui.size-xs .input-nested,
+.input-group-addon.size-xs .input-nested,
+.text-control.size-xs .input-nested,
+.btn.compact.size-xs .input-nested,
+.select-container.size-xs .input-nested,
+.select-container .options-container.size-xs .input-nested,
+textarea.size-xs .input-nested,
+input[type="text"].size-xs .input-nested,
+input[type="email"].size-xs .input-nested,
+input[type="tel"].size-xs .input-nested,
+input[type="password"].size-xs .input-nested,
+input[type="number"].size-xs .input-nested,
+input[type="url"].size-xs .input-nested,
+input[type="search"].size-xs .input-nested,
+input[type="date"].size-xs .input-nested,
+input[type="month"].size-xs .input-nested,
+input[type="week"].size-xs .input-nested,
+input[type="time"].size-xs .input-nested,
+input[type="datetime"].size-xs .input-nested,
+input[type="datetime-local"].size-xs .input-nested {
+  margin-left: -8px;
+  margin-right: -8px;
+  width: auto !important;
+}
+.gui.size-xs .input-nested:first-child,
+.input-group-addon.size-xs .input-nested:first-child,
+.text-control.size-xs .input-nested:first-child,
+.btn.compact.size-xs .input-nested:first-child,
+.select-container.size-xs .input-nested:first-child,
+.select-container .options-container.size-xs .input-nested:first-child,
+textarea.size-xs .input-nested:first-child,
+input[type="text"].size-xs .input-nested:first-child,
+input[type="email"].size-xs .input-nested:first-child,
+input[type="tel"].size-xs .input-nested:first-child,
+input[type="password"].size-xs .input-nested:first-child,
+input[type="number"].size-xs .input-nested:first-child,
+input[type="url"].size-xs .input-nested:first-child,
+input[type="search"].size-xs .input-nested:first-child,
+input[type="date"].size-xs .input-nested:first-child,
+input[type="month"].size-xs .input-nested:first-child,
+input[type="week"].size-xs .input-nested:first-child,
+input[type="time"].size-xs .input-nested:first-child,
+input[type="datetime"].size-xs .input-nested:first-child,
+input[type="datetime-local"].size-xs .input-nested:first-child {
+  margin-top: -6px;
+}
+.gui.size-xs .input-nested:last-child,
+.input-group-addon.size-xs .input-nested:last-child,
+.text-control.size-xs .input-nested:last-child,
+.btn.compact.size-xs .input-nested:last-child,
+.select-container.size-xs .input-nested:last-child,
+.select-container .options-container.size-xs .input-nested:last-child,
+textarea.size-xs .input-nested:last-child,
+input[type="text"].size-xs .input-nested:last-child,
+input[type="email"].size-xs .input-nested:last-child,
+input[type="tel"].size-xs .input-nested:last-child,
+input[type="password"].size-xs .input-nested:last-child,
+input[type="number"].size-xs .input-nested:last-child,
+input[type="url"].size-xs .input-nested:last-child,
+input[type="search"].size-xs .input-nested:last-child,
+input[type="date"].size-xs .input-nested:last-child,
+input[type="month"].size-xs .input-nested:last-child,
+input[type="week"].size-xs .input-nested:last-child,
+input[type="time"].size-xs .input-nested:last-child,
+input[type="datetime"].size-xs .input-nested:last-child,
+input[type="datetime-local"].size-xs .input-nested:last-child {
+  margin-bottom: -6px;
+}
 .gui.size-sm,
+.gui.size-sm .input-nested,
 .input-group-addon.size-sm,
+.input-group-addon.size-sm .input-nested,
 .text-control.size-sm,
+.text-control.size-sm .input-nested,
 .btn.compact.size-sm,
+.btn.compact.size-sm .input-nested,
+.select-container.size-sm,
+.select-container.size-sm .input-nested,
+.select-container .options-container.size-sm,
+.select-container .options-container.size-sm .input-nested,
 textarea.size-sm,
+textarea.size-sm .input-nested,
 input[type="text"].size-sm,
+input[type="text"].size-sm .input-nested,
 input[type="email"].size-sm,
+input[type="email"].size-sm .input-nested,
 input[type="tel"].size-sm,
+input[type="tel"].size-sm .input-nested,
 input[type="password"].size-sm,
+input[type="password"].size-sm .input-nested,
 input[type="number"].size-sm,
+input[type="number"].size-sm .input-nested,
 input[type="url"].size-sm,
+input[type="url"].size-sm .input-nested,
 input[type="search"].size-sm,
+input[type="search"].size-sm .input-nested,
 input[type="date"].size-sm,
+input[type="date"].size-sm .input-nested,
 input[type="month"].size-sm,
+input[type="month"].size-sm .input-nested,
 input[type="week"].size-sm,
+input[type="week"].size-sm .input-nested,
 input[type="time"].size-sm,
+input[type="time"].size-sm .input-nested,
 input[type="datetime"].size-sm,
-input[type="datetime-local"].size-sm {
+input[type="datetime"].size-sm .input-nested,
+input[type="datetime-local"].size-sm,
+input[type="datetime-local"].size-sm .input-nested {
   font-size: 14px;
   line-height: 18px;
   min-height: 32px;
+  min-width: 32px;
   padding: 6px 8px 6px 8px;
 }
+.gui.size-sm .input-nested,
+.input-group-addon.size-sm .input-nested,
+.text-control.size-sm .input-nested,
+.btn.compact.size-sm .input-nested,
+.select-container.size-sm .input-nested,
+.select-container .options-container.size-sm .input-nested,
+textarea.size-sm .input-nested,
+input[type="text"].size-sm .input-nested,
+input[type="email"].size-sm .input-nested,
+input[type="tel"].size-sm .input-nested,
+input[type="password"].size-sm .input-nested,
+input[type="number"].size-sm .input-nested,
+input[type="url"].size-sm .input-nested,
+input[type="search"].size-sm .input-nested,
+input[type="date"].size-sm .input-nested,
+input[type="month"].size-sm .input-nested,
+input[type="week"].size-sm .input-nested,
+input[type="time"].size-sm .input-nested,
+input[type="datetime"].size-sm .input-nested,
+input[type="datetime-local"].size-sm .input-nested {
+  margin-left: -9px;
+  margin-right: -9px;
+  width: auto !important;
+}
+.gui.size-sm .input-nested:first-child,
+.input-group-addon.size-sm .input-nested:first-child,
+.text-control.size-sm .input-nested:first-child,
+.btn.compact.size-sm .input-nested:first-child,
+.select-container.size-sm .input-nested:first-child,
+.select-container .options-container.size-sm .input-nested:first-child,
+textarea.size-sm .input-nested:first-child,
+input[type="text"].size-sm .input-nested:first-child,
+input[type="email"].size-sm .input-nested:first-child,
+input[type="tel"].size-sm .input-nested:first-child,
+input[type="password"].size-sm .input-nested:first-child,
+input[type="number"].size-sm .input-nested:first-child,
+input[type="url"].size-sm .input-nested:first-child,
+input[type="search"].size-sm .input-nested:first-child,
+input[type="date"].size-sm .input-nested:first-child,
+input[type="month"].size-sm .input-nested:first-child,
+input[type="week"].size-sm .input-nested:first-child,
+input[type="time"].size-sm .input-nested:first-child,
+input[type="datetime"].size-sm .input-nested:first-child,
+input[type="datetime-local"].size-sm .input-nested:first-child {
+  margin-top: -7px;
+}
+.gui.size-sm .input-nested:last-child,
+.input-group-addon.size-sm .input-nested:last-child,
+.text-control.size-sm .input-nested:last-child,
+.btn.compact.size-sm .input-nested:last-child,
+.select-container.size-sm .input-nested:last-child,
+.select-container .options-container.size-sm .input-nested:last-child,
+textarea.size-sm .input-nested:last-child,
+input[type="text"].size-sm .input-nested:last-child,
+input[type="email"].size-sm .input-nested:last-child,
+input[type="tel"].size-sm .input-nested:last-child,
+input[type="password"].size-sm .input-nested:last-child,
+input[type="number"].size-sm .input-nested:last-child,
+input[type="url"].size-sm .input-nested:last-child,
+input[type="search"].size-sm .input-nested:last-child,
+input[type="date"].size-sm .input-nested:last-child,
+input[type="month"].size-sm .input-nested:last-child,
+input[type="week"].size-sm .input-nested:last-child,
+input[type="time"].size-sm .input-nested:last-child,
+input[type="datetime"].size-sm .input-nested:last-child,
+input[type="datetime-local"].size-sm .input-nested:last-child {
+  margin-bottom: -7px;
+}
 .gui.size-md,
+.gui.size-md .input-nested,
 .input-group-addon.size-md,
+.input-group-addon.size-md .input-nested,
 .text-control.size-md,
+.text-control.size-md .input-nested,
 .btn.compact.size-md,
+.btn.compact.size-md .input-nested,
+.select-container.size-md,
+.select-container.size-md .input-nested,
+.select-container .options-container.size-md,
+.select-container .options-container.size-md .input-nested,
 textarea.size-md,
+textarea.size-md .input-nested,
 input[type="text"].size-md,
+input[type="text"].size-md .input-nested,
 input[type="email"].size-md,
+input[type="email"].size-md .input-nested,
 input[type="tel"].size-md,
+input[type="tel"].size-md .input-nested,
 input[type="password"].size-md,
+input[type="password"].size-md .input-nested,
 input[type="number"].size-md,
+input[type="number"].size-md .input-nested,
 input[type="url"].size-md,
+input[type="url"].size-md .input-nested,
 input[type="search"].size-md,
+input[type="search"].size-md .input-nested,
 input[type="date"].size-md,
+input[type="date"].size-md .input-nested,
 input[type="month"].size-md,
+input[type="month"].size-md .input-nested,
 input[type="week"].size-md,
+input[type="week"].size-md .input-nested,
 input[type="time"].size-md,
+input[type="time"].size-md .input-nested,
 input[type="datetime"].size-md,
-input[type="datetime-local"].size-md {
+input[type="datetime"].size-md .input-nested,
+input[type="datetime-local"].size-md,
+input[type="datetime-local"].size-md .input-nested {
   font-size: 16px;
   line-height: 20px;
   min-height: 36px;
+  min-width: 36px;
   padding: 7px 10px 7px 10px;
 }
+.gui.size-md .input-nested,
+.input-group-addon.size-md .input-nested,
+.text-control.size-md .input-nested,
+.btn.compact.size-md .input-nested,
+.select-container.size-md .input-nested,
+.select-container .options-container.size-md .input-nested,
+textarea.size-md .input-nested,
+input[type="text"].size-md .input-nested,
+input[type="email"].size-md .input-nested,
+input[type="tel"].size-md .input-nested,
+input[type="password"].size-md .input-nested,
+input[type="number"].size-md .input-nested,
+input[type="url"].size-md .input-nested,
+input[type="search"].size-md .input-nested,
+input[type="date"].size-md .input-nested,
+input[type="month"].size-md .input-nested,
+input[type="week"].size-md .input-nested,
+input[type="time"].size-md .input-nested,
+input[type="datetime"].size-md .input-nested,
+input[type="datetime-local"].size-md .input-nested {
+  margin-left: -10px;
+  margin-right: -10px;
+  width: auto !important;
+}
+.gui.size-md .input-nested:first-child,
+.input-group-addon.size-md .input-nested:first-child,
+.text-control.size-md .input-nested:first-child,
+.btn.compact.size-md .input-nested:first-child,
+.select-container.size-md .input-nested:first-child,
+.select-container .options-container.size-md .input-nested:first-child,
+textarea.size-md .input-nested:first-child,
+input[type="text"].size-md .input-nested:first-child,
+input[type="email"].size-md .input-nested:first-child,
+input[type="tel"].size-md .input-nested:first-child,
+input[type="password"].size-md .input-nested:first-child,
+input[type="number"].size-md .input-nested:first-child,
+input[type="url"].size-md .input-nested:first-child,
+input[type="search"].size-md .input-nested:first-child,
+input[type="date"].size-md .input-nested:first-child,
+input[type="month"].size-md .input-nested:first-child,
+input[type="week"].size-md .input-nested:first-child,
+input[type="time"].size-md .input-nested:first-child,
+input[type="datetime"].size-md .input-nested:first-child,
+input[type="datetime-local"].size-md .input-nested:first-child {
+  margin-top: -7px;
+}
+.gui.size-md .input-nested:last-child,
+.input-group-addon.size-md .input-nested:last-child,
+.text-control.size-md .input-nested:last-child,
+.btn.compact.size-md .input-nested:last-child,
+.select-container.size-md .input-nested:last-child,
+.select-container .options-container.size-md .input-nested:last-child,
+textarea.size-md .input-nested:last-child,
+input[type="text"].size-md .input-nested:last-child,
+input[type="email"].size-md .input-nested:last-child,
+input[type="tel"].size-md .input-nested:last-child,
+input[type="password"].size-md .input-nested:last-child,
+input[type="number"].size-md .input-nested:last-child,
+input[type="url"].size-md .input-nested:last-child,
+input[type="search"].size-md .input-nested:last-child,
+input[type="date"].size-md .input-nested:last-child,
+input[type="month"].size-md .input-nested:last-child,
+input[type="week"].size-md .input-nested:last-child,
+input[type="time"].size-md .input-nested:last-child,
+input[type="datetime"].size-md .input-nested:last-child,
+input[type="datetime-local"].size-md .input-nested:last-child {
+  margin-bottom: -7px;
+}
 .gui.size-lg,
+.gui.size-lg .input-nested,
 .input-group-addon.size-lg,
+.input-group-addon.size-lg .input-nested,
 .text-control.size-lg,
+.text-control.size-lg .input-nested,
 .btn.compact.size-lg,
+.btn.compact.size-lg .input-nested,
+.select-container.size-lg,
+.select-container.size-lg .input-nested,
+.select-container .options-container.size-lg,
+.select-container .options-container.size-lg .input-nested,
 textarea.size-lg,
+textarea.size-lg .input-nested,
 input[type="text"].size-lg,
+input[type="text"].size-lg .input-nested,
 input[type="email"].size-lg,
+input[type="email"].size-lg .input-nested,
 input[type="tel"].size-lg,
+input[type="tel"].size-lg .input-nested,
 input[type="password"].size-lg,
+input[type="password"].size-lg .input-nested,
 input[type="number"].size-lg,
+input[type="number"].size-lg .input-nested,
 input[type="url"].size-lg,
+input[type="url"].size-lg .input-nested,
 input[type="search"].size-lg,
+input[type="search"].size-lg .input-nested,
 input[type="date"].size-lg,
+input[type="date"].size-lg .input-nested,
 input[type="month"].size-lg,
+input[type="month"].size-lg .input-nested,
 input[type="week"].size-lg,
+input[type="week"].size-lg .input-nested,
 input[type="time"].size-lg,
+input[type="time"].size-lg .input-nested,
 input[type="datetime"].size-lg,
-input[type="datetime-local"].size-lg {
+input[type="datetime"].size-lg .input-nested,
+input[type="datetime-local"].size-lg,
+input[type="datetime-local"].size-lg .input-nested {
   font-size: 20px;
   line-height: 25px;
   min-height: 43px;
+  min-width: 43px;
   padding: 8px 12px 8px 12px;
 }
+.gui.size-lg .input-nested,
+.input-group-addon.size-lg .input-nested,
+.text-control.size-lg .input-nested,
+.btn.compact.size-lg .input-nested,
+.select-container.size-lg .input-nested,
+.select-container .options-container.size-lg .input-nested,
+textarea.size-lg .input-nested,
+input[type="text"].size-lg .input-nested,
+input[type="email"].size-lg .input-nested,
+input[type="tel"].size-lg .input-nested,
+input[type="password"].size-lg .input-nested,
+input[type="number"].size-lg .input-nested,
+input[type="url"].size-lg .input-nested,
+input[type="search"].size-lg .input-nested,
+input[type="date"].size-lg .input-nested,
+input[type="month"].size-lg .input-nested,
+input[type="week"].size-lg .input-nested,
+input[type="time"].size-lg .input-nested,
+input[type="datetime"].size-lg .input-nested,
+input[type="datetime-local"].size-lg .input-nested {
+  margin-left: -13px;
+  margin-right: -13px;
+  width: auto !important;
+}
+.gui.size-lg .input-nested:first-child,
+.input-group-addon.size-lg .input-nested:first-child,
+.text-control.size-lg .input-nested:first-child,
+.btn.compact.size-lg .input-nested:first-child,
+.select-container.size-lg .input-nested:first-child,
+.select-container .options-container.size-lg .input-nested:first-child,
+textarea.size-lg .input-nested:first-child,
+input[type="text"].size-lg .input-nested:first-child,
+input[type="email"].size-lg .input-nested:first-child,
+input[type="tel"].size-lg .input-nested:first-child,
+input[type="password"].size-lg .input-nested:first-child,
+input[type="number"].size-lg .input-nested:first-child,
+input[type="url"].size-lg .input-nested:first-child,
+input[type="search"].size-lg .input-nested:first-child,
+input[type="date"].size-lg .input-nested:first-child,
+input[type="month"].size-lg .input-nested:first-child,
+input[type="week"].size-lg .input-nested:first-child,
+input[type="time"].size-lg .input-nested:first-child,
+input[type="datetime"].size-lg .input-nested:first-child,
+input[type="datetime-local"].size-lg .input-nested:first-child {
+  margin-top: -9px;
+}
+.gui.size-lg .input-nested:last-child,
+.input-group-addon.size-lg .input-nested:last-child,
+.text-control.size-lg .input-nested:last-child,
+.btn.compact.size-lg .input-nested:last-child,
+.select-container.size-lg .input-nested:last-child,
+.select-container .options-container.size-lg .input-nested:last-child,
+textarea.size-lg .input-nested:last-child,
+input[type="text"].size-lg .input-nested:last-child,
+input[type="email"].size-lg .input-nested:last-child,
+input[type="tel"].size-lg .input-nested:last-child,
+input[type="password"].size-lg .input-nested:last-child,
+input[type="number"].size-lg .input-nested:last-child,
+input[type="url"].size-lg .input-nested:last-child,
+input[type="search"].size-lg .input-nested:last-child,
+input[type="date"].size-lg .input-nested:last-child,
+input[type="month"].size-lg .input-nested:last-child,
+input[type="week"].size-lg .input-nested:last-child,
+input[type="time"].size-lg .input-nested:last-child,
+input[type="datetime"].size-lg .input-nested:last-child,
+input[type="datetime-local"].size-lg .input-nested:last-child {
+  margin-bottom: -9px;
+}
 .gui.size-xl,
+.gui.size-xl .input-nested,
 .input-group-addon.size-xl,
+.input-group-addon.size-xl .input-nested,
 .text-control.size-xl,
+.text-control.size-xl .input-nested,
 .btn.compact.size-xl,
+.btn.compact.size-xl .input-nested,
+.select-container.size-xl,
+.select-container.size-xl .input-nested,
+.select-container .options-container.size-xl,
+.select-container .options-container.size-xl .input-nested,
 textarea.size-xl,
+textarea.size-xl .input-nested,
 input[type="text"].size-xl,
+input[type="text"].size-xl .input-nested,
 input[type="email"].size-xl,
+input[type="email"].size-xl .input-nested,
 input[type="tel"].size-xl,
+input[type="tel"].size-xl .input-nested,
 input[type="password"].size-xl,
+input[type="password"].size-xl .input-nested,
 input[type="number"].size-xl,
+input[type="number"].size-xl .input-nested,
 input[type="url"].size-xl,
+input[type="url"].size-xl .input-nested,
 input[type="search"].size-xl,
+input[type="search"].size-xl .input-nested,
 input[type="date"].size-xl,
+input[type="date"].size-xl .input-nested,
 input[type="month"].size-xl,
+input[type="month"].size-xl .input-nested,
 input[type="week"].size-xl,
+input[type="week"].size-xl .input-nested,
 input[type="time"].size-xl,
+input[type="time"].size-xl .input-nested,
 input[type="datetime"].size-xl,
-input[type="datetime-local"].size-xl {
+input[type="datetime"].size-xl .input-nested,
+input[type="datetime-local"].size-xl,
+input[type="datetime-local"].size-xl .input-nested {
   font-size: 24px;
   line-height: 30px;
   min-height: 52px;
+  min-width: 52px;
   padding: 10px 15px 10px 15px;
 }
+.gui.size-xl .input-nested,
+.input-group-addon.size-xl .input-nested,
+.text-control.size-xl .input-nested,
+.btn.compact.size-xl .input-nested,
+.select-container.size-xl .input-nested,
+.select-container .options-container.size-xl .input-nested,
+textarea.size-xl .input-nested,
+input[type="text"].size-xl .input-nested,
+input[type="email"].size-xl .input-nested,
+input[type="tel"].size-xl .input-nested,
+input[type="password"].size-xl .input-nested,
+input[type="number"].size-xl .input-nested,
+input[type="url"].size-xl .input-nested,
+input[type="search"].size-xl .input-nested,
+input[type="date"].size-xl .input-nested,
+input[type="month"].size-xl .input-nested,
+input[type="week"].size-xl .input-nested,
+input[type="time"].size-xl .input-nested,
+input[type="datetime"].size-xl .input-nested,
+input[type="datetime-local"].size-xl .input-nested {
+  margin-left: -15px;
+  margin-right: -15px;
+  width: auto !important;
+}
+.gui.size-xl .input-nested:first-child,
+.input-group-addon.size-xl .input-nested:first-child,
+.text-control.size-xl .input-nested:first-child,
+.btn.compact.size-xl .input-nested:first-child,
+.select-container.size-xl .input-nested:first-child,
+.select-container .options-container.size-xl .input-nested:first-child,
+textarea.size-xl .input-nested:first-child,
+input[type="text"].size-xl .input-nested:first-child,
+input[type="email"].size-xl .input-nested:first-child,
+input[type="tel"].size-xl .input-nested:first-child,
+input[type="password"].size-xl .input-nested:first-child,
+input[type="number"].size-xl .input-nested:first-child,
+input[type="url"].size-xl .input-nested:first-child,
+input[type="search"].size-xl .input-nested:first-child,
+input[type="date"].size-xl .input-nested:first-child,
+input[type="month"].size-xl .input-nested:first-child,
+input[type="week"].size-xl .input-nested:first-child,
+input[type="time"].size-xl .input-nested:first-child,
+input[type="datetime"].size-xl .input-nested:first-child,
+input[type="datetime-local"].size-xl .input-nested:first-child {
+  margin-top: -11px;
+}
+.gui.size-xl .input-nested:last-child,
+.input-group-addon.size-xl .input-nested:last-child,
+.text-control.size-xl .input-nested:last-child,
+.btn.compact.size-xl .input-nested:last-child,
+.select-container.size-xl .input-nested:last-child,
+.select-container .options-container.size-xl .input-nested:last-child,
+textarea.size-xl .input-nested:last-child,
+input[type="text"].size-xl .input-nested:last-child,
+input[type="email"].size-xl .input-nested:last-child,
+input[type="tel"].size-xl .input-nested:last-child,
+input[type="password"].size-xl .input-nested:last-child,
+input[type="number"].size-xl .input-nested:last-child,
+input[type="url"].size-xl .input-nested:last-child,
+input[type="search"].size-xl .input-nested:last-child,
+input[type="date"].size-xl .input-nested:last-child,
+input[type="month"].size-xl .input-nested:last-child,
+input[type="week"].size-xl .input-nested:last-child,
+input[type="time"].size-xl .input-nested:last-child,
+input[type="datetime"].size-xl .input-nested:last-child,
+input[type="datetime-local"].size-xl .input-nested:last-child {
+  margin-bottom: -11px;
+}
+.gui,
+.gui .input-nested,
+.input-group-addon,
+.input-group-addon .input-nested,
 .text-control,
+.text-control .input-nested,
+.btn.compact,
+.btn.compact .input-nested,
+.btn,
+.select-container,
+.select-container .input-nested,
+.select-container .options-container,
+.select-container .options-container .input-nested,
+textarea,
+textarea .input-nested,
+input[type="text"],
+input[type="text"] .input-nested,
+input[type="email"],
+input[type="email"] .input-nested,
+input[type="tel"],
+input[type="tel"] .input-nested,
+input[type="password"],
+input[type="password"] .input-nested,
+input[type="number"],
+input[type="number"] .input-nested,
+input[type="url"],
+input[type="url"] .input-nested,
+input[type="search"],
+input[type="search"] .input-nested,
+input[type="date"],
+input[type="date"] .input-nested,
+input[type="month"],
+input[type="month"] .input-nested,
+input[type="week"],
+input[type="week"] .input-nested,
+input[type="time"],
+input[type="time"] .input-nested,
+input[type="datetime"],
+input[type="datetime"] .input-nested,
+input[type="datetime-local"],
+input[type="datetime-local"] .input-nested {
+  font-size: 16px;
+  line-height: 20px;
+  min-height: 36px;
+  min-width: 36px;
+  padding: 7px 10px 7px 10px;
+}
+.gui .input-nested,
+.input-group-addon .input-nested,
+.text-control .input-nested,
+.btn.compact .input-nested,
+.select-container .input-nested,
+.select-container .options-container .input-nested,
+textarea .input-nested,
+input[type="text"] .input-nested,
+input[type="email"] .input-nested,
+input[type="tel"] .input-nested,
+input[type="password"] .input-nested,
+input[type="number"] .input-nested,
+input[type="url"] .input-nested,
+input[type="search"] .input-nested,
+input[type="date"] .input-nested,
+input[type="month"] .input-nested,
+input[type="week"] .input-nested,
+input[type="time"] .input-nested,
+input[type="datetime"] .input-nested,
+input[type="datetime-local"] .input-nested {
+  margin-left: -10px;
+  margin-right: -10px;
+  width: auto !important;
+}
+.gui .input-nested:first-child,
+.input-group-addon .input-nested:first-child,
+.text-control .input-nested:first-child,
+.btn.compact .input-nested:first-child,
+.select-container .input-nested:first-child,
+.select-container .options-container .input-nested:first-child,
+textarea .input-nested:first-child,
+input[type="text"] .input-nested:first-child,
+input[type="email"] .input-nested:first-child,
+input[type="tel"] .input-nested:first-child,
+input[type="password"] .input-nested:first-child,
+input[type="number"] .input-nested:first-child,
+input[type="url"] .input-nested:first-child,
+input[type="search"] .input-nested:first-child,
+input[type="date"] .input-nested:first-child,
+input[type="month"] .input-nested:first-child,
+input[type="week"] .input-nested:first-child,
+input[type="time"] .input-nested:first-child,
+input[type="datetime"] .input-nested:first-child,
+input[type="datetime-local"] .input-nested:first-child {
+  margin-top: -7px;
+}
+.gui .input-nested:last-child,
+.input-group-addon .input-nested:last-child,
+.text-control .input-nested:last-child,
+.btn.compact .input-nested:last-child,
+.select-container .input-nested:last-child,
+.select-container .options-container .input-nested:last-child,
+textarea .input-nested:last-child,
+input[type="text"] .input-nested:last-child,
+input[type="email"] .input-nested:last-child,
+input[type="tel"] .input-nested:last-child,
+input[type="password"] .input-nested:last-child,
+input[type="number"] .input-nested:last-child,
+input[type="url"] .input-nested:last-child,
+input[type="search"] .input-nested:last-child,
+input[type="date"] .input-nested:last-child,
+input[type="month"] .input-nested:last-child,
+input[type="week"] .input-nested:last-child,
+input[type="time"] .input-nested:last-child,
+input[type="datetime"] .input-nested:last-child,
+input[type="datetime-local"] .input-nested:last-child {
+  margin-bottom: -7px;
+}
+.text-control,
+.select-container,
+.select-container .options-container,
 textarea,
 input[type="text"],
 input[type="email"],
@@ -2273,214 +2859,259 @@ input[type="week"],
 input[type="time"],
 input[type="datetime"],
 input[type="datetime-local"] {
-  background: #dddddd;
-  border-color: #dddddd;
+  background-color: #dddddd;
+  border-color: transparent;
 }
-.text-control:hover,
-textarea:hover,
-input[type="text"]:hover,
-input[type="email"]:hover,
-input[type="tel"]:hover,
-input[type="password"]:hover,
-input[type="number"]:hover,
-input[type="url"]:hover,
-input[type="search"]:hover,
-input[type="date"]:hover,
-input[type="month"]:hover,
-input[type="week"]:hover,
-input[type="time"]:hover,
-input[type="datetime"]:hover,
-input[type="datetime-local"]:hover {
-  background: #dddddd;
-  border-color: #dddddd;
+.text-control:hover:not(.force-normal),
+.select-container:hover:not(.force-normal),
+.select-container .options-container:hover:not(.force-normal),
+textarea:hover:not(.force-normal),
+input[type="text"]:hover:not(.force-normal),
+input[type="email"]:hover:not(.force-normal),
+input[type="tel"]:hover:not(.force-normal),
+input[type="password"]:hover:not(.force-normal),
+input[type="number"]:hover:not(.force-normal),
+input[type="url"]:hover:not(.force-normal),
+input[type="search"]:hover:not(.force-normal),
+input[type="date"]:hover:not(.force-normal),
+input[type="month"]:hover:not(.force-normal),
+input[type="week"]:hover:not(.force-normal),
+input[type="time"]:hover:not(.force-normal),
+input[type="datetime"]:hover:not(.force-normal),
+input[type="datetime-local"]:hover:not(.force-normal) {
+  background-color: #d2d2d2;
 }
-.text-control:focus,
-textarea:focus,
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="tel"]:focus,
-input[type="password"]:focus,
-input[type="number"]:focus,
-input[type="url"]:focus,
-input[type="search"]:focus,
-input[type="date"]:focus,
-input[type="month"]:focus,
-input[type="week"]:focus,
-input[type="time"]:focus,
-input[type="datetime"]:focus,
-input[type="datetime-local"]:focus {
-  background: #cfcfcf;
-  border-color: #cfcfcf;
-}
-.text-control:active,
-textarea:active,
-input[type="text"]:active,
-input[type="email"]:active,
-input[type="tel"]:active,
-input[type="password"]:active,
-input[type="number"]:active,
-input[type="url"]:active,
-input[type="search"]:active,
-input[type="date"]:active,
-input[type="month"]:active,
-input[type="week"]:active,
-input[type="time"]:active,
-input[type="datetime"]:active,
-input[type="datetime-local"]:active {
-  background: #dddddd;
-  border-color: #dddddd;
+.text-control:focus:not(.force-normal),
+.select-container:focus:not(.force-normal),
+.select-container .options-container:focus:not(.force-normal),
+textarea:focus:not(.force-normal),
+input[type="text"]:focus:not(.force-normal),
+input[type="email"]:focus:not(.force-normal),
+input[type="tel"]:focus:not(.force-normal),
+input[type="password"]:focus:not(.force-normal),
+input[type="number"]:focus:not(.force-normal),
+input[type="url"]:focus:not(.force-normal),
+input[type="search"]:focus:not(.force-normal),
+input[type="date"]:focus:not(.force-normal),
+input[type="month"]:focus:not(.force-normal),
+input[type="week"]:focus:not(.force-normal),
+input[type="time"]:focus:not(.force-normal),
+input[type="datetime"]:focus:not(.force-normal),
+input[type="datetime-local"]:focus:not(.force-normal) {
+  background-color: #cecece;
 }
 .btn {
-  font-size: 16px;
-  line-height: 20px;
-  min-height: 50px;
-  padding: 14px 20px 14px 20px;
-  background: #6f5499;
-  border-color: #6f5499;
+  background-color: #6f5499;
+  border-color: #59417d;
 }
-.btn.size-xs {
+.btn.size-xs,
+.btn.size-xs .input-nested {
   font-size: 12px;
   line-height: 15px;
   min-height: 37px;
+  min-width: 37px;
   padding: 10px 15px 10px 15px;
 }
-.btn.size-sm {
+.btn.size-xs .input-nested {
+  margin-left: -15px;
+  margin-right: -15px;
+  width: auto !important;
+}
+.btn.size-xs .input-nested:first-child {
+  margin-top: -11px;
+}
+.btn.size-xs .input-nested:last-child {
+  margin-bottom: -11px;
+}
+.btn.size-sm,
+.btn.size-sm .input-nested {
   font-size: 14px;
   line-height: 18px;
   min-height: 44px;
+  min-width: 44px;
   padding: 12px 17px 12px 17px;
 }
-.btn.size-md {
+.btn.size-sm .input-nested {
+  margin-left: -18px;
+  margin-right: -18px;
+  width: auto !important;
+}
+.btn.size-sm .input-nested:first-child {
+  margin-top: -13px;
+}
+.btn.size-sm .input-nested:last-child {
+  margin-bottom: -13px;
+}
+.btn.size-md,
+.btn.size-md .input-nested {
   font-size: 16px;
   line-height: 20px;
   min-height: 50px;
+  min-width: 50px;
   padding: 14px 20px 14px 20px;
 }
-.btn.size-lg {
+.btn.size-md .input-nested {
+  margin-left: -20px;
+  margin-right: -20px;
+  width: auto !important;
+}
+.btn.size-md .input-nested:first-child {
+  margin-top: -14px;
+}
+.btn.size-md .input-nested:last-child {
+  margin-bottom: -14px;
+}
+.btn.size-lg,
+.btn.size-lg .input-nested {
   font-size: 20px;
   line-height: 25px;
   min-height: 61px;
+  min-width: 61px;
   padding: 17px 25px 17px 25px;
 }
-.btn.size-xl {
+.btn.size-lg .input-nested {
+  margin-left: -25px;
+  margin-right: -25px;
+  width: auto !important;
+}
+.btn.size-lg .input-nested:first-child {
+  margin-top: -18px;
+}
+.btn.size-lg .input-nested:last-child {
+  margin-bottom: -18px;
+}
+.btn.size-xl,
+.btn.size-xl .input-nested {
   font-size: 24px;
   line-height: 30px;
   min-height: 74px;
+  min-width: 74px;
   padding: 21px 30px 21px 30px;
 }
+.btn.size-xl .input-nested {
+  margin-left: -30px;
+  margin-right: -30px;
+  width: auto !important;
+}
+.btn.size-xl .input-nested:first-child {
+  margin-top: -21px;
+}
+.btn.size-xl .input-nested:last-child {
+  margin-bottom: -21px;
+}
+.btn,
+.btn .input-nested {
+  font-size: 16px;
+  line-height: 20px;
+  min-height: 50px;
+  min-width: 50px;
+  padding: 14px 20px 14px 20px;
+}
+.btn .input-nested {
+  margin-left: -20px;
+  margin-right: -20px;
+  width: auto !important;
+}
+.btn .input-nested:first-child {
+  margin-top: -14px;
+}
+.btn .input-nested:last-child {
+  margin-bottom: -14px;
+}
 .btn.btn-primary {
-  background: #6f5499;
-  border-color: #4e3378;
+  background-color: #6f5499;
+  border-color: #59417d;
 }
-.btn.btn-primary:hover {
-  background: #5e4485;
-  border-color: #3c2364;
-}
+.btn.btn-primary:hover,
 .btn.btn-primary:focus {
-  background: #5e4485;
-  border-color: #3c2364;
+  background-color: #5e4388;
+  border-color: #48316b;
 }
 .btn.btn-primary:active {
-  background: #4c2c7e;
-  border-color: #2b0b5c;
+  background-color: #4d2f7b;
+  border-color: #362059;
 }
 .btn.btn-secondary {
-  background: #34495e;
-  border-color: #13283d;
+  background-color: #34495e;
+  border-color: #223242;
 }
-.btn.btn-secondary:hover {
-  background: #263a4e;
-  border-color: #05192d;
-}
+.btn.btn-secondary:hover,
 .btn.btn-secondary:focus {
-  background: #263a4e;
-  border-color: #05192d;
+  background-color: #23384d;
+  border-color: #12212f;
 }
 .btn.btn-secondary:active {
-  background: #18314a;
-  border-color: #001020;
+  background-color: #162739;
+  border-color: #080f17;
 }
 .btn.btn-success {
-  background: #449d44;
-  border-color: #237c23;
+  background-color: #449d44;
+  border-color: #337f33;
 }
-.btn.btn-success:hover {
-  background: #358935;
-  border-color: #146714;
-}
+.btn.btn-success:hover,
 .btn.btn-success:focus {
-  background: #358935;
-  border-color: #146714;
+  background-color: #338c33;
+  border-color: #236d23;
 }
 .btn.btn-success:active {
-  background: #208020;
-  border-color: #005e00;
+  background-color: #237b23;
+  border-color: #165716;
 }
 .btn.btn-info {
-  background: #5bc0de;
-  border-color: #3a9fbd;
+  background-color: #5bc0de;
+  border-color: #3aaed0;
 }
-.btn.btn-info:hover {
-  background: #4ba9c5;
-  border-color: #2a88a4;
-}
+.btn.btn-info:hover,
 .btn.btn-info:focus {
-  background: #4ba9c5;
-  border-color: #2a88a4;
+  background-color: #4aafcd;
+  border-color: #3796b2;
 }
 .btn.btn-info:active {
-  background: #2d98b8;
-  border-color: #0c7797;
+  background-color: #19b0dd;
+  border-color: #198aac;
 }
 .btn.btn-warning {
-  background: #f0ad4e;
-  border-color: #cf8c2d;
+  background-color: #f0ad4e;
+  border-color: #e5982b;
 }
-.btn.btn-warning:hover {
-  background: #d6983f;
-  border-color: #b5761e;
-}
+.btn.btn-warning:hover,
 .btn.btn-warning:focus {
-  background: #d6983f;
-  border-color: #b5761e;
+  background-color: #df9c3d;
+  border-color: #c68427;
 }
 .btn.btn-warning:active {
-  background: #c68323;
-  border-color: #a56101;
+  background-color: #f79204;
+  border-color: #c0750a;
 }
 .btn.btn-danger {
-  background: #c9302c;
-  border-color: #a80f0b;
+  background-color: #c9302c;
+  border-color: #a7231f;
 }
-.btn.btn-danger:hover {
-  background: #b2231f;
-  border-color: #8e0400;
-}
+.btn.btn-danger:hover,
 .btn.btn-danger:focus {
-  background: #b2231f;
-  border-color: #8e0400;
+  background-color: #b81f1b;
+  border-color: #941310;
 }
 .btn.btn-danger:active {
-  background: #a3100c;
-  border-color: #6e0300;
+  background-color: #a11511;
+  border-color: #780c09;
 }
-.btn:hover {
-  background: #5e4485;
-  border-color: #5e4485;
-}
+.btn:hover,
 .btn:focus {
-  background: #5e4485;
-  border-color: #5e4485;
+  background-color: #5e4388;
+  border-color: #48316b;
 }
 .btn:active {
-  background: #4c2c7e;
-  border-color: #4c2c7e;
+  background-color: #4d2f7b;
+  border-color: #362059;
 }
 .gui,
 .input-group-addon,
 .text-control,
 .btn.compact,
 .btn,
+.select-container,
+.select-container .options-container,
 textarea,
 input[type="text"],
 input[type="email"],
@@ -2507,118 +3138,93 @@ input[type="datetime-local"] {
   background: #6f5499;
   color: white;
 }
-.btn.opaque.btn-primary {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: #ffffff;
+.btn.btn-opaque {
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
-.btn.opaque.btn-primary:hover {
-  background: #6f5499;
-  border-color: #ffffff;
+.btn.btn-opaque.btn-primary {
+  border-color: white;
+  background-color: transparent;
 }
-.btn.opaque.btn-primary:focus {
-  background: #6f5499;
-  border-color: #ffffff;
+.btn.btn-opaque.btn-primary:hover,
+.btn.btn-opaque.btn-primary:focus {
+  background-color: #6f5499;
 }
-.btn.opaque.btn-primary:active {
-  background: rgba(51, 51, 51, 0.5);
-  border-color: #ffffff;
+.btn.btn-opaque.btn-primary:active {
+  background-color: rgba(0, 0, 0, 0.5);
 }
-.btn.opaque.btn-secondary {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: #ffffff;
+.btn.btn-opaque.btn-secondary {
+  border-color: white;
+  background-color: transparent;
 }
-.btn.opaque.btn-secondary:hover {
-  background: #34495e;
-  border-color: #ffffff;
+.btn.btn-opaque.btn-secondary:hover,
+.btn.btn-opaque.btn-secondary:focus {
+  background-color: #34495e;
 }
-.btn.opaque.btn-secondary:focus {
-  background: #34495e;
-  border-color: #ffffff;
+.btn.btn-opaque.btn-secondary:active {
+  background-color: rgba(0, 0, 0, 0.5);
 }
-.btn.opaque.btn-secondary:active {
-  background: rgba(51, 51, 51, 0.5);
-  border-color: #ffffff;
+.btn.btn-opaque.btn-success {
+  border-color: white;
+  background-color: transparent;
 }
-.btn.opaque.btn-success {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: #ffffff;
+.btn.btn-opaque.btn-success:hover,
+.btn.btn-opaque.btn-success:focus {
+  background-color: #449d44;
 }
-.btn.opaque.btn-success:hover {
-  background: #449d44;
-  border-color: #ffffff;
+.btn.btn-opaque.btn-success:active {
+  background-color: rgba(0, 0, 0, 0.5);
 }
-.btn.opaque.btn-success:focus {
-  background: #449d44;
-  border-color: #ffffff;
+.btn.btn-opaque.btn-info {
+  border-color: white;
+  background-color: transparent;
 }
-.btn.opaque.btn-success:active {
-  background: rgba(51, 51, 51, 0.5);
-  border-color: #ffffff;
+.btn.btn-opaque.btn-info:hover,
+.btn.btn-opaque.btn-info:focus {
+  background-color: #5bc0de;
 }
-.btn.opaque.btn-info {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: #ffffff;
+.btn.btn-opaque.btn-info:active {
+  background-color: rgba(0, 0, 0, 0.5);
 }
-.btn.opaque.btn-info:hover {
-  background: #5bc0de;
-  border-color: #ffffff;
+.btn.btn-opaque.btn-warning {
+  border-color: white;
+  background-color: transparent;
 }
-.btn.opaque.btn-info:focus {
-  background: #5bc0de;
-  border-color: #ffffff;
+.btn.btn-opaque.btn-warning:hover,
+.btn.btn-opaque.btn-warning:focus {
+  background-color: #f0ad4e;
 }
-.btn.opaque.btn-info:active {
-  background: rgba(51, 51, 51, 0.5);
-  border-color: #ffffff;
+.btn.btn-opaque.btn-warning:active {
+  background-color: rgba(0, 0, 0, 0.5);
 }
-.btn.opaque.btn-warning {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: #ffffff;
+.btn.btn-opaque.btn-danger {
+  border-color: white;
+  background-color: transparent;
 }
-.btn.opaque.btn-warning:hover {
-  background: #f0ad4e;
-  border-color: #ffffff;
+.btn.btn-opaque.btn-danger:hover,
+.btn.btn-opaque.btn-danger:focus {
+  background-color: #c9302c;
 }
-.btn.opaque.btn-warning:focus {
-  background: #f0ad4e;
-  border-color: #ffffff;
+.btn.btn-opaque.btn-danger:active {
+  background-color: rgba(0, 0, 0, 0.5);
 }
-.btn.opaque.btn-warning:active {
-  background: rgba(51, 51, 51, 0.5);
-  border-color: #ffffff;
+form.form-default {
+  max-width: 100%;
 }
-.btn.opaque.btn-danger {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: #ffffff;
+form.form-xs {
+  max-width: 320px;
 }
-.btn.opaque.btn-danger:hover {
-  background: #c9302c;
-  border-color: #ffffff;
+form.form-sm {
+  max-width: 480px;
 }
-.btn.opaque.btn-danger:focus {
-  background: #c9302c;
-  border-color: #ffffff;
+form.form-md {
+  max-width: 640px;
 }
-.btn.opaque.btn-danger:active {
-  background: rgba(51, 51, 51, 0.5);
-  border-color: #ffffff;
+form.form-lg {
+  max-width: 800px;
 }
-.btn.btn-reverse {
-  color: #444;
-  background: #ffffff;
-  border-color: #444444;
-}
-.btn.btn-reverse:hover {
-  background: #e4e4e4;
-  border-color: #353535;
-}
-.btn.btn-reverse:focus {
-  background: #e4e4e4;
-  border-color: #353535;
-}
-.btn.btn-reverse:active {
-  background: #c8b7b7;
-  border-color: #352525;
+form.form-xl {
+  max-width: 960px;
 }
 body {
   max-width: 1140px;

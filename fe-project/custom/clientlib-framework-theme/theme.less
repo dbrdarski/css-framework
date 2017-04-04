@@ -95,8 +95,8 @@ input[type="datetime-local"]{
   .ctrl-size.each(@gui-sizes, @btn-size-template);
   .ctrl-size(16px, @btn-size-template); // default value 16px
   // Generate button color styles
-  .ctrl-colors.each(@btn-colors, @btn-style-bordered);
-  // Generate default button style
+  .ctrl-colors.each(@btn-colors, @btn-style-default);
+  // // Generate default button style
   .ctrl-colors(@brand-primary, @btn-style-default);
 }
 
@@ -156,16 +156,32 @@ input[type="datetime-local"]{
   color: white;
 
   // few custom styles classes
-  &.opaque{
-    .ctrl-colors.each(@btn-colors, @btn-style-opaque);    
-  }
-
-  &.btn-reverse{
-    .ctrl-colors(#fff, {
-      color: #444;
-      .fn(){
-        .style(@border-color:#444);
+  &.btn-opaque{
+    text-shadow: 0 0 5px fade(black, 50);
+    box-shadow: 0 0 15px fade(black, 20);
+    .ctrl-colors.each(@btn-colors, {
+      .fn(@color){
+        border-color: white;
+        background-color: transparent;
+        &:hover, &:focus{
+          background-color: @color;
+        }
+        &:active{
+          background-color: fade(black, 50);
+        }
       }
     });
   }
+}
+
+@form-sizes: default 100%, xs 320px, sm 480px, md 640px, lg 800px, xl 960px;
+
+form{
+  .hash.map(@form-sizes, {
+    .fn(@key, @value){
+      &.form-@{key}{
+        max-width: @value;
+      }
+    }
+  });
 }
