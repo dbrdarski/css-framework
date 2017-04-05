@@ -3357,22 +3357,3 @@ pre {
 .box.small {
   min-height: 100px;
 }
-@media (min-width: 576px) and (max-width: 767px) {
-  .title {
-    color: #6f5499;
-    font-weight: 900;
-  }
-}
-/* List itererator example */
-.text-left {
-  text-align: left;
-}
-.text-right {
-  text-align: right;
-}
-.text-center {
-  text-align: center;
-}
-.text-justify {
-  text-align: justify;
-}

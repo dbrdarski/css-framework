@@ -75,7 +75,7 @@ pomegranate-red #c0392b,
 amethyst-purple #9b59b6,
 wisteria-purple #8e44ad;
 
-.map.each(@text-colors, {
+.hash.map(@text-colors, {
   .fn(@k, @v){
     .@{k}{
       color: @v;
@@ -83,7 +83,7 @@ wisteria-purple #8e44ad;
   }
 });
 
-.map.each(@bg-colors, {
+.hash.map(@bg-colors, {
   .fn(@k, @v){
     .bg-@{k}{
       &, &:before{

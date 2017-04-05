@@ -131,50 +131,71 @@ pre{
 
 
 
-.media(sm, {
-	.title{
-		color: @brand-primary;
-		font-weight: 900;
-	}
-});
+// .media(sm, {
+// 	.title{
+// 		color: @brand-primary;
+// 		font-weight: 900;
+// 	}
+// });
 
 
-// /* Range itererator example */
-// .range.map({
+/* Range itererator example */
+// .range.map(5, {
 // 	.fn(@i){
 // 		.class-@{i}{
 // 			content: @i;
 // 		}
 // 	}
-// }, 5);
+// });
 
 
 /* List itererator example */
-.list.map(left right center justify, {
-	.fn(@i){
-		.text-@{i}{
-			text-align: @i;
-		}
-	}
-});
+// .list.map(left right center justify, {
+// 	.fn(@i){
+// 		.text-@{i}{
+// 			text-align: @i;
+// 		}
+// 	}
+// });
 
 
 // /* Nested itererators example */
 // .list.map(small medium large, {
 // 	.fn(@s){
-// 		.range.map({
+// 		.range.map(3, {
 // 			.fn(@i){
 // 				.size-@{s}-@{i}{			
 // 					width: 100%/@i;
 // 					content: @s;
 // 				}				
 // 			}
-// 		}, 3);
+// 		});
 // 	}
 // });
 
 
-// /* Media itererator example */
+
+// /* Hashmap itererator example */
+// @bg-colors:
+// 	cloud-white #ecf0f1,
+// 	silver-gray #bdc3c7,
+// 	midnight-blue #2c3e50,
+// 	turquoise-green #1abc9c,
+// 	concrete-gray #95a5a6,
+// 	sunset-orange #f39c12,
+// 	wisteria-purple #8e44ad;
+
+// .hash.map(@bg-colors, {
+// 	.fn(@k, @v){
+// 		.bg-@{k}{
+// 			background: @v;
+// 		}
+// 	}
+// });
+
+
+
+/* Media itererator example */
 // .media.map(min, {
 // 	.fn(@s){
 // 		.hide-@{s}{
@@ -183,5 +204,15 @@ pre{
 // 		.show-@{s}{
 // 			display: block;
 // 		}
+// 	}
+// });
+
+
+/* Media mixin example */
+// .media(md-, {
+//     .megamenu {
+//         label {
+//             min-width: 50px;
+//         }
 // 	}
 // });
