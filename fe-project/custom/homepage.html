@@ -18,22 +18,53 @@
 				</div>
 			</div>
 		</header>
-		<section class="top-widgets">
-			
-		</section>
+
 		<main class="main-area">
 		<div class="content">
 			<h1 class="title"><strong>ACL</strong> <em>LESS</em> Framework</h1>
+			<ul class="navigation">
+				<li><a href="#structure">Project structure</a></li>
+				<li><a href="#asd">Grids and Utility classes</a>
+					<ul>
+						<li><a href="#media">LESS iterators</a></li>
+						<li><a href="#column-grid">12 Column Grid</a></li>
+						<li><a href="#block-grid">Block Grid</a></li>
+					</ul>
+				</li>
+				<li>
+						<a href="#mixins">Built-in Mixins</a>
+					<ul>
+						<li><a href="#media">Media mixins</a></li>
+						<li><a href="#iterators">LESS iterators</a></li>
+						<li><a href="#gui">GUI mixins</a></li>
+					</ul>
+				</li>
+			</ul>
 			<section>
 				<h2><big>Project structure</big></h2>
 				<p>The framework is organized in two folders, <code>clientlib-framework</code> and <code>clientlib-framework-theme</code>.</p>
-				<p>All project-related development should take place in the <strong>theme</strong> folder. The <strong>framework</strong> files should not be edited for any reason except when working on improvements to the framework itself, or updating to a newer version. This structure guarantees that any project related customizations won't be deleted in the process.
+				<p>The clientlib-framework only defines <strong>mixins</strong> and <strong>variable default values</strong>. It does not output any CSS styles. This is an done intentionally, so it can be easily included and used in other AEM components.</p>
+				<p><strong>Note:</strong> The clientlib-framework should be regarded as a project dependancy and should not be edited for any reason. The default values can be overriden into the <strong>theme</strong> folder.
+				All the active development should take place into the framework-theme folder instead.
+				</strong> The <strong>framework files</strong> should not be edited for any reason except for updating or improving the framework itself. This separation guarantees that any project customizations won't be lost during an framework upgrade.</p>
+				<h3>Developing a theme</h3>
+				<p>The <strong>theme folder</strong> is notable for two things:</p>
+				<ul>
+					<li>The <strong>framework-theme</strong> outputs all necessary framework styles (CSS resets, utility classes, layout grids and default styles). This is in contrast to the framework which doesn't output any CSS when included.</li>
+					<li>When implementing a design within the framework, all project related customization and development should take place in the <strong>theme folder.</strong> This also includes default theme variables, if we want to change a default vlue it should be overriden form the theme folder.
+					</li>
+				</ul>
+				<h3>Overriding default variables</h3>
+				<p>Instead of editing the default variables in the framework folder, we need to override them into the <code>theme-variables.less</code> file in <strong>parent theme</strong> folder.</p>
+				<h3>Including the framework in components</h3>
+				<p>To get access to the framework from within an ACL component it must be included included on the top of the LESS file. Including the the framework does not output any CSS.
+
 				</p>
 				<br>
 			</section>
 			<section>
 				<h2><big>12 Column Grid <em>(based on Bootsrap)</em></big></h2>
-				<h2>Screen sizes</h2>
+				<h2>Screen sizes <em>(default values)</em></h2>
 				<table class="table table-bordered table-striped table-responsive">
 				  <thead>
 				    <tr>
@@ -61,12 +92,7 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-<!-- 				    <tr>
-				      <th class="text-nowrap" scope="row">Grid behavior</th>
-				      <td>Horizontal at all times</td>
-				      <td colspan="4">Collapsed to start, horizontal above breakpoints</td>
-				    </tr>
- -->				    <tr>
+				    <tr>
 				      <th class="text-nowrap" scope="row">Max container width</th>
 				      <td>None (auto)</td>
 				      <td>540px</td>
@@ -103,8 +129,7 @@
 				      <td colspan="5">Yes</td>
 				    </tr>
 				  </tbody>
-				</table>				
-
+				</table>
 			</section>
 			<section>
 				<h2>Example</h2>				
@@ -176,32 +201,150 @@
    }
 }</pre>
 			</section>
-			<section>
+			<section id="iterators" class="section">
 				<h2><big>LESS Iterators</big></h2>
-				<p>Less doesn't offer FOR loops and such, instead iteration is achived with recursive mixins. This can get confusing and complicated.</p>
-				<p>These iterators mixins provide descriptive and more unified approach for working with <strong>Ranges</strong>, <strong>Lists</strong> and <strong>Media</strong>.</p>
+				<p>Less doesn't offer FOR loops and such, instead iteration is achived by calling mixins recursively. This can get confusing and complicated. These iterators mixins provide descriptive and more unified approach for working with <strong>Ranges</strong>, <strong>Lists</strong>, <strong>Hashmaps</strong> and <strong>Media (viewport sizes)</strong>.</p>
+
+
 				<h3>Range Iterator</h3>
-				<p><code class="code-title" class="code-title">.range.map(@block, @to)</code></p>
-				<p><pre>
-.range.map({
-   .fn(@i){
-      // @i is the iterated value;
-      ...
+				<p>Accepts a range and a ruleset containg a mixin. Applies the mixin to each number value from the range. If the first parameter of the list is ommited, it defaults to 1.</p>
+				<p><code class="code-title" class="code-title">.range.map(@to, @block)</code></p>
+				<p><code class="code"><c>// will iterate numbers from 1 to 8</c>
+.range.map(8, {
+   .fn(@i){ <c>// @i will be the iterated value</c>
+       ...
    }
-}, 8);</pre></p>
-				<p><code class="code-title">.range.map(@block, @from, @to)</code></p>
+});</code>
+<p><code class="code-title">.range.map(@from @to, @block)</code></p>
+<code class="code"><c>// will iterate numbers from 10 to 20</c>
+.range.map(10 20, {
+   .fn(@i){ <c>// @i will be the iterated value</c>
+       ...
+   }
+});</code></p>
+<h4>Example</h4>
+<code class="code">.range.map(3, {
+   .fn(@i){
+      .column-@{i}{ width: 100% / @i };
+   }
+});</code>
+<p>The code will output this: </p>
+<code class="code">.column-1 {
+  width: 100%;
+}
+.column-2 {
+  width: 50%;
+}
+.column-3 {
+  width: 33.33333333%;
+}</code>
 				<h3>List Iterator</h3>
 				<p><code class="code-title">.range.map(@list, @block [, @modifiers])</code></p>
+<code class="code">.list.map(one two three, {
+   .fn(@i){ <c>// @i will be the iterated value</c>
+       ...
+   }
+});
+</code>
+<h3>Example</h3>
+<code class="code">.list.map(left right center justify, {
+   .fn(@i){
+       .text-@{i}{
+           text-align: @i;
+       }
+   }
+});
+</code>
+<p>Will output:</p>
+<code class="code">.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+.text-justify {
+  text-align: justify;
+}</code>
+				<h3>Hash Map <em>(Key/Value Pair)</em> Iterator</h3>
+				<p><code class="code-title">.hash.map(key value, key value; @block)</code></p>
+				<p><strong>Disclosure:</strong> There are no hashmap data type in LESS. <br>The way we emulate hashmaps is by nesting a 2 member list (instead of key and value) into another list.</p>
+<code class="code">.hash.map(k1 v1, k2 v2; {
+   .fn(@k, @v){ <c>// @k and @v will be the iterated key/value pairs</c>
+       ...
+   }
+});
+</code>
+<h3>Example</h3>
+<code class="code">@brand-colors:
+    success #ecf0f1,
+    warning #bdc3c7,
+    info #2c3e50,
+    danger #1abc9c;
 
-				<h3>Media Iterator</h3>
-				<p><code class="code-title">.range.map(min/max, @block)</code></p>
-
+.hash.map(@brand-colors, {
+    .fn(@k, @v){
+        .btn-@{k}{
+            background-color: @v;
+        }
+    }
+});</code>
+<p>Will output:</p>
+<code class="code">.btn-success {
+  background-color: #ecf0f1;
+}
+.btn-warning {
+  background-color: #bdc3c7;
+}
+.btn-info {
+  background-color: #2c3e50;
+}
+.btn-danger {
+  background-color: #1abc9c;
+}</code>
+				<h3>Media <em>(Viewport Size)</em> Iterator</h3>
+				<p><code class="code-title">.media.map(min/max, @block)</code></p>
+				<code class="code">.media.map(min, {
+   .fn(@s){ <c>// @s will be the iterated screen size prefix</c>
+       ...
+   }
+});
+</code>
+<h3>Example</h3>
+<code class="code">.media.map(min, {
+    .fn(@s){
+        .hide-@{s}{ display: none; }
+        .show-@{s}{ display: block; }
+    }
+});</code>
+<p>Will output:</p>
+<code class="code">.hide-xs { display: none; }
+.show-xs { display: block; }
+@media (min-width: 576px) {
+  .hide-sm { display: none; }
+  .show-sm { display: block; }
+}
+@media (min-width: 768px) {
+  .hide-md { display: none; }
+  .show-md { display: block; }
+}
+@media (min-width: 992px) {
+  .hide-lg { display: none; }
+  .show-lg { display: block; }
+}
+@media (min-width: 1200px) {
+  .hide-xl { display: none; }
+  .show-xl { display: block; }
+}
+</code>
 			</section>
 		</div>
 		</main>
 <!-- 		<section class="bottom-widgets">
 		</section>
- -->		<footer class="footer" id="footer">
+ -->	<footer class="footer" id="footer">
 			<div class="footer-top"></div>
 			<section id="footer-bottom" class="footer-bottom text-center">CSS Framework</section>
 		</footer>
