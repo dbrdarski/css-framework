@@ -24,18 +24,18 @@
 			<h1 class="title"><strong>ACL</strong> <em>LESS</em> Framework</h1>
 			<ul class="navigation">
 				<li><a href="#structure">Project structure</a></li>
-				<li><a href="#asd">Grids and Utility classes</a>
+				<li><a href="#grids">Grids and utility classes</a>
 					<ul>
 						<li><a href="#utility">Utility classes</a></li>
-						<li><a href="#column-grid">12 Column Grid</a></li>
-						<li><a href="#block-grid">Block Grid</a></li>
+						<li><a href="#column-grid">12 column grid</a></li>
+						<li><a href="#block-grid">Block grid</a></li>
 					</ul>
 				</li>
 				<li>
 						<a href="#mixins">Built-in Mixins</a>
 					<ul>
-						<li><a href="#media">Media Mixins</a></li>
-						<li><a href="#iterators">LESS Iterators</a>
+						<li><a href="#media-mixins">Media mixins</a></li>
+						<li><a href="#iterators">LESS iterators</a>
 							<ul>
 								<li><a href="#range">Range</a></li>
 								<li><a href="#list">List</a></li>
@@ -43,19 +43,19 @@
 								<li><a href="#media">Media</a></li>
 							</ul>
 						</li>
-						<li><a href="#gui">GUI Mixins</a>
+						<li><a href="#gui-mixins">GUI mixins</a>
 							<ul>
-								<li><a href="#gui-size">GUI Size</a></li>
-								<li><a href="#gui-color">GUI Color</a></li>
+								<li><a href="#gui-size">GUI size</a></li>
+								<li><a href="#gui-color">GUI color</a></li>
 							</ul>
 						</li>
 					</ul>
 				</li>
 			</ul>
 			<section>
-				<h2><big>Project structure</big></h2>
+				<h2 id="structure"><big>Project structure</big></h2>
 				<p>The framework is organized in two folders, <code>clientlib-framework</code> and <code>clientlib-framework-theme</code>.</p>
-				<p>The clientlib-framework only defines <strong>mixins</strong> and <strong>variable default values</strong>. It does not output any CSS styles. This is an done intentionally, so it can be easily included and used in other AEM components.</p>
+				<p>The clientlib-framework only defines <strong>mixins</strong> and <strong>variable default values</strong>. It does not output any CSS styles. This is an done intentionally, so it can be easily included and used in other AEM components without creating duplicate CSS code.</p>
 				<p><strong>Note:</strong> The clientlib-framework should be regarded as a project dependancy and should not be edited for any reason. The default values can be overriden into the <strong>theme</strong> folder.
 				All the active development should take place into the framework-theme folder instead.
 				</strong> The <strong>framework files</strong> should not be edited for any reason except for updating or improving the framework itself. This separation guarantees that any project customizations won't be lost during an framework upgrade.</p>
@@ -63,7 +63,7 @@
 				<p>The <strong>theme folder</strong> is notable for two things:</p>
 				<ul>
 					<li>The <strong>framework-theme</strong> outputs all necessary framework styles (CSS resets, utility classes, layout grids and default styles). This is in contrast to the framework which doesn't output any CSS when included.</li>
-					<li>When implementing a design within the framework, all project related customization and development should take place in the <strong>theme folder.</strong> This also includes default theme variables, if we want to change a default vlue it should be overriden form the theme folder.
+					<li>When implementing a design within the framework, all project related customization and development should take place in the <strong>theme folder.</strong> This also includes default theme variables, if we want to change a default value it should be overriden form the theme folder.
 					</li>
 				</ul>
 				<h3>Overriding default variables</h3>
@@ -72,8 +72,9 @@
 				<p>To get access to the framework from within an ACL component it must be included included on the top of the LESS file. Including the the framework does not output any CSS.</p>
 			</section>
 			<section>
-				<h2 id="column-grid"><big>12 Column Grid <em>(based on Bootsrap)</em></big></h2>
-				<h2>Screen sizes <em>(default values)</em></h2>
+				<h2 id="grids"><big>Grids and utility classes</big></h2>
+				<h2 id="column-grid">12 column grid <em>(based on Bootsrap)</em></h2>
+				<h3>Screen sizes <em>(default values)</em></h3>
 				<table class="table table-bordered table-striped table-responsive">
 				  <thead>
 				    <tr>
@@ -155,7 +156,7 @@
 				</div>
 			</section>
 			<section>
-				<h2 id="block-grid"><big>Block Grid <em>(based on ZURB Foundation)</em></big></h3>
+				<h2 id="block-grid">Block grid <em>(based on ZURB Foundation)</em></h3>
 				Block grid is an alternative grid system used when we want to display blocks of even width. Appart from not being able to have 5 identical columns with the 12 columns grid system, the block grid also adds <code>clear:both</code> to elements that start in new line. In the <a href="#grid-issue">example</a> below, the blue boxes are 1px shorter than the rest. This causes broken layout. Switch to a tablet viewport mode to view the the broken layout!
 				<div class="row">
 					<div class="block-grid xs-1 sm-2 lg-4">
@@ -175,7 +176,7 @@
 				</div>
 			</section>
 			<section id="grid-issue">
-				<p>Why block grid? The 12 Column Grid Problem:</p>
+				<p>Why block grid? The 12 column grid Problem:</p>
 				<div class="row">
 					<div class="col sm-6 lg-3">
 						<div class="box"></div>
@@ -192,26 +193,39 @@
 			</div>
 			</section>
 			<section>
-				<h2><big>Media Mixins</big></h2>
-				<p>Media mixins that allow for smart media queries that use the built-in screen breakpoints in <strong>variables.less</strong>. These values can be overriden in <strong>theme-variables.less</strong>.</p>
-				<pre>
-.screen(sm-lg, {
+			<h2 id="mixins"><big>Built-in mixins</big></h2>
+			<h2 id="media-mixins">Media mixins</h2>
+				<p>Media mixin wraps a block of code with a media query, by providing a min-max value based on the built-in screen breakpoints values defined in <strong>variables.less</strong>. <em><strong style="color:#c30;">Note:</strong> Please don't change any of these values directly from the <strong>variables.less</strong> file, but use <strong>theme-variables.less</strong> located in the framework-theme folder instead.</em></p>
+				<p><code class="code-title" class="code-title">.media(@min-@max, @block)</code></p>
+				<code class="code">.media(sm-lg, {
    .title {
       color: #6f5499;
       font-weight: 900;
    }
-});</pre>
+});</code>
 				<p>outputs:</p>
-				<pre>
-@media (min-width: 576px) and (max-width: 1199px) {
+				<code class="code">@media (min-width: 576px) and (max-width: 1199px) {
    .title {
       color: #6f5499;
       font-weight: 900;
    }
-}</pre>
+}</code>
+<p>Ommiting either min/max parameter will simply remove the corresponding condition from the media query:</p>
+				<code class="code">.media(sm-, {
+   .title {
+      ...
+   }
+});</code>
+				<p>outputs:</p>
+				<code class="code">@media (min-width: 576px) {
+   .title {
+      ...
+   }
+}</code>
+<p>Additionaly, providing</p>
 			</section>
-			<section id="iterators" class="section">
-				<h2><big>LESS Iterators</big></h2>
+			<section class="section">
+				<h2 id="iterators"><big>LESS iterators</big></h2>
 				<p>Less doesn't offer FOR loops and such, instead iteration is achived by calling mixins recursively. This can get confusing and complicated. These iterators mixins provide descriptive and more unified approach for working with <strong>Ranges</strong>, <strong>Lists</strong>, <strong>Hashmaps</strong> and <strong>Media (viewport sizes)</strong>.</p>
 
 
@@ -351,53 +365,58 @@
 			</section>
 			<section>
 				<h2 id="gui-mixins">
-					<big>GUI Mixins</big>
+					<big>GUI mixins</big>
 				</h2>
-				<h3 id="gui-mixins">GUI Size</h3>
-				<p><code class="code-title">.ctrl-size(@template)</code>
-				<p><code class="code">.hash.map(k1 v1, k2 v2; {
-   .fn(@k, @v){ <c>// @k and @v will be the iterated key/value pairs</c>
-       ...
+				<p>GUI mixins are the mixins responsible for sizing and styling of gui elements such as buttons and inputs.</p>
+				<h3 id="gui-size">GUI size</h3>
+				<p><code class="code-title">.ctrl-size(@base-size, @template)</code>
+				<p>Computes the padding and line-height for gui elements (buttons, inputs) based on font size.</p>
+				<p><code class="code"><c>// 16px will be the font-size and basis for other parameters</c>
+.ctrl-size(16px, {
+   .fn(){
+       .template( 
+            @size-ratio : 1;        <c>@size-ratio scales other parameters relative to the font-size</c>
+            @line-height: 1.25;     <c>@line-height ratio relative to font-weight</c>
+            @padding: .875 1.25     <c>@padding relative to @base-size * @size ratio</c>
+       	);
    }
 });</code></p>
 </p>
-				<code class="code-title sub">.ctrl-size(@template)</code></p>
-				<h3 id="gui-mixins">GUI Size Iterator</h3>
-				<p><code class="code-title">.ctrl-size.each(@size, @template)</code></p>
-				<p><strong>Disclosure:</strong> There are no hashmap data type in LESS. <br>The way we emulate hashmaps is by nesting a 2 member list (instead of key and value) into another list.</p>
-<code class="code">.hash.map(k1 v1, k2 v2; {
-   .fn(@k, @v){ <c>// @k and @v will be the iterated key/value pairs</c>
-       ...
+				<!-- <code class="code-title sub">.ctrl-size(@template)</code></p> -->
+				<h3 id="gui-size-each">GUI size iterator</h3>
+				<p>Iterates a hashmap of prefixes and screen sizes and applies size mixin for each value.</p>
+				<p><code class="code-title">.ctrl-size.each(@size-list, @template)</code></p>
+				
+				<p><code class="code">.ctrl-size.each(xs 12px md 16px lg 20px, {
+   .fn(){
+       .template(
+            @size-ratio : 0.5;
+       	);
    }
-});
-</code>
-<h3>Example</h3>
-<code class="code">@brand-colors:
-    success #ecf0f1,
-    warning #bdc3c7,
-    info #2c3e50,
-    danger #1abc9c;
-
-.hash.map(@brand-colors, {
-    .fn(@k, @v){
-        .btn-@{k}{
-            background-color: @v;
-        }
+});</code></p>
+				<h3 id="gui-color">GUI color</h3>
+				<p><code class="code-title">.ctrl-color(@color, @template)</code>
+				<p>Applies color style template to a color.</p>
+				<p><code class="code">.ctrl-colors(#ff0; {
+    .fn(@c){ <c>// @c will be set to the color - #ff0</c>
+        ...
     }
-});</code>
-<p>Will output:</p>
-<code class="code">.btn-success {
-  background-color: #ecf0f1;
-}
-.btn-warning {
-  background-color: #bdc3c7;
-}
-.btn-info {
-  background-color: #2c3e50;
-}
-.btn-danger {
-  background-color: #1abc9c;
-}</code>
+});
+</code></p>
+</p>
+				<!-- <code class="code-title sub">.ctrl-color(@template)</code></p> -->
+				<h3 id="gui-color-each">GUI size iterator</h3>
+				<p>Applies color style template to key/value pair list.</p>
+				<p><code class="code-title">.ctrl-colors.each(@colors, @template)</code></p>
+				
+					<p><code class="code">@brand-colors: primary #edc, info #39c, warning #ec2, danger #c30;
+
+.ctrl-colors.each(@brand-colors, {
+    .fn(@name, @color){
+        ...
+    }
+});
+</code></p>
 			</section>
 		</div>
 		</main>
